@@ -1,0 +1,13 @@
+* find out what the thing does or needs to do
+* name the thing you want to build
+* work out where it needs to live in the file structure (and why!)
+* Difference between where the component lives or is created and where it is used!
+* state how the thing should be doing what it needs to do
+* draw a diagram or flow to show how the different stages are linked together
+
+
+
+* component did mount- mounts and fetches single article for example
+* write articlethen submit- 201 response hopefully
+* on that response will be body with id
+* with that id navigate to article/id
