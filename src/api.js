@@ -1,7 +1,8 @@
 import Axios from "axios";
 import React from "react";
-const url = "https://git.heroku.com/veronicas-nc-knews.git";
-//giving url a query, such a query username
+
+export const url = "https://bencnews.herokuapp.com/api/articles";
+//giving url a query, such as query username
 export const getArticles = query => {
   return Axios.get(url + "articles", { params: query }).then(
     ({ data: { articles } }) => {

@@ -1,15 +1,13 @@
 import React from "react";
+import Articles from "./Articles";
+import { Link } from "@reach/router";
 
-import {Link}
-
-
-const ArticleList = ({ articles, loggedInUser}) => {
-  return ( <ul> 
-{
-  articles.map(article => {
-    return ( 
-      <Link to={`/articles/}
-      <li key={article.article_id}><p>{article.title}</p>{loggedInUser && <button> delete that article</button>}
-  })
-   </li>
+export default function ArticleList({ articles, loggedInUser }) {
+  return (
+    <div>
+      {articles.map((articles, index) => (
+        <Articles articles={articles} key={index} />
+      ))}
+    </div>
+  );
 }

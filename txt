@@ -11,3 +11,31 @@
 * write articlethen submit- 201 response hopefully
 * on that response will be body with id
 * with that id navigate to article/id
+
+
+
+    
+         
+          {/* //<Link to={`/articles/`} />,
+//           (
+//             <li key={article.article_id}>
+//               <p>{article.title}</p>
+//               {loggedInUser && <button> delete that article </button>})}
+//             </li>
+//           )
+//         );
+//       })}
+//     </div> */}
+{/* 
+// export default function StudentList({ studentList }) { */}
+{/* //   //  console.log("***", studentList[0]);
+//   return (
+//     <div>
+//       {studentList.map((student, index) => (
+//         <StudentCard student={student} key={index} />
+//       ))}
+//     </div>
+//   ); */}
+
+  {/* //<StudentCard id="student" student={studentList[0]} />; // represents 1 studens
+//} */}

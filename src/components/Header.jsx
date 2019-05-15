@@ -1,15 +1,12 @@
-import React from "react";
+import React, { Component } from "react";
 
 export default class Header extends Component {
-  render ()
-  {
-    return <h1>hello</h1>;
+  render() {
+    return <h1>NC Knews Home</h1>;
     //link to home
-    //link to 
+    //link to
+  }
+  componentDidMount() {
+    return <h1>NC Knews Home</h1>;
   }
 }
-componentDidMount() {
-  return <h1>hello</h1>
-}
-
-export default Header;

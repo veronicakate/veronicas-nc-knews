@@ -1,5 +1,5 @@
 import { getUser } from "../api";
-import React from "react";
+import React, { Component } from "react";
 
 class LoginBox extends Component {
   state = {

@@ -1,5 +1,5 @@
 import { getArticles } from "../api";
-
+import React, { Component } from "react";
 class SingleArticle extends Component {
   componentDidMount() {
     getArticles(this.props.article_id).then(article => {
@@ -24,3 +24,5 @@ class SingleArticle extends Component {
     );
   }
 }
+
+export default SingleArticle;
