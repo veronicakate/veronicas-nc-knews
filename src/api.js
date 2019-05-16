@@ -1,12 +1,20 @@
 import Axios from "axios";
 import React from "react";
 
-export const url = "https://bencnews.herokuapp.com/api/articles";
+export const url = "https://bencnews.herokuapp.com/api/";
 //giving url a query, such as query username
 export const getArticles = query => {
   return Axios.get(url + "articles", { params: query }).then(
     ({ data: { articles } }) => {
       return articles;
+    }
+  );
+};
+
+export const getSingleArticle = query => {
+  return Axios.get(url + "articles/:articleid", { params: query }).then(
+    ({ data: { article } }) => {
+      return article;
     }
   );
 };
@@ -17,7 +25,7 @@ export const getUser = username => {
   });
 };
 
-export const getSingleArticle = username => {
+export const getArticlesFromUsername = username => {
   return Axios.get(`${url}/users/{username}`).then(({ data: { username } }) => {
     return username;
   });

@@ -23,8 +23,7 @@ class App extends Component {
         <Header loggedInUser={this.logInUser} />
         <Router>
           <Articles loggedInUser={loggedInUser} path="/articles" />
-          <ArticleList path="/articles" articleList={this.state.articleList} />
-          <SingleArticle path="/articles/:articleid" />
+          <SingleArticle path="/:articleid" />
           <NewArticleForm path="/new-article" />
           <ShowError default path="/error" />
         </Router>
@@ -33,7 +32,6 @@ class App extends Component {
   }
   componentDidMount() {
     const url = "https://bencnews.herokuapp.com/api/articles";
-
     Axios.get(url).then(({ data: { articles } }) => {
       this.setState({ articleList: articles });
     });
@@ -44,3 +42,5 @@ class App extends Component {
   };
 }
 export default App;
+
+//<ArticleList path="/articles" articleList={this.state.articleList} />
