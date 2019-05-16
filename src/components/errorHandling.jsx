@@ -1,9 +1,15 @@
 import React from "react";
 
-const ShowError = props => {
+const ShowError = ({ location = {} }) => {
+  //PROPS.LOCATION.STATE- on this path
   return (
     <div>
-      <h1> oops there was an issue</h1>
+      {location.state ? (
+        <h1> oops {location.state.status}</h1>
+      ) : (
+        <h1> page not found</h1>
+      )}
+      {location.state && <p> {location.state.from} not found</p>}
     </div>
   );
 };

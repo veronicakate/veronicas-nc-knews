@@ -17,7 +17,7 @@ class Articles extends Component {
       this.setState({ article})
     }).catch(({response: {data, status}}) => {
       console.log(data.message, status)});
-      navigate('/not-found', {state: {from: 'article', msg: DataTransfer.message, status}, replace: true})
+      navigate('/error', {state: {from: 'article', msg: data.message, status}, replace: true})
   }
   render() {
     const { articles, votes } = this.setState;
@@ -26,11 +26,10 @@ class Articles extends Component {
     return (
       <div>
         {location.state && location.state.new} && (
-          <p>Congratulations, you just posted an article</p>
+          <p>Congratulations, you just posted an article!</p>
         )
       </div>
     )
-    // const deletedArticle = this.props.location && this.props.location.state ? this.props.location.state.articleDeleted : false;
     return (
       <section className="list">
         <h3> Loading article..</h3>) : (
@@ -64,5 +63,15 @@ class Articles extends Component {
 }
 handlevote = direction => {
 
+}
+
+getAuthorArticles = () => {
+  this.setState({author: 'jessjelly', p:1})
+}
+
+changePage = pageNum => {
+  this.setState(prevState => {
+
+  })
 }
 export default Articles;

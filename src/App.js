@@ -16,18 +16,17 @@ class App extends Component {
     loggedInUser: ""
   };
   render() {
-    // const { articles, loading } = this.state;
+    const { articles, loading } = this.state;
     const { loggedInUser } = this.state;
     return (
       <div className="App">
-        <Header loggedInUser={this.logInUser} path="/" />
+        <Header loggedInUser={this.logInUser} />
         <Router>
-          <Articles path="/" />
+          <Articles loggedInUser={loggedInUser} path="/articles" />
           <ArticleList path="/articles" articleList={this.state.articleList} />
           <SingleArticle path="/articles/:articleid" />
           <NewArticleForm path="/new-article" />
-          <ShowError path="/not-found" />
-          <ShowError default />
+          <ShowError default path="/error" />
         </Router>
       </div>
     );
@@ -39,10 +38,9 @@ class App extends Component {
       this.setState({ articleList: articles });
     });
   }
-}
-// loggedInUser={loggedInUser} path="/articles" />
-// logInUser = username => {
-//   this.setState({ loggedInUser: username });
-// };
 
+  logInUser = username => {
+    this.setState({ loggedInUser: username });
+  };
+}
 export default App;

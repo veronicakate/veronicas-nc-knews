@@ -26,14 +26,13 @@ class NewArticleForm extends Component {
     );
   }
 
-  //export default NewArticleForm;
   handleChange = event => {
     const { key, value } = event.target;
     this.setState({ [key]: value });
   };
   toggleArticle = () => {
-    const { showAdd } = this.state;
-    this.setState({ showAdd: !showAdd });
+    const { showAddedArticle } = this.state;
+    this.setState({ showAddedArticle: !showAddedArticle });
   };
 
   handleSubmit = e => {
