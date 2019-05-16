@@ -1,30 +1,48 @@
-// import { ReactComponent } from "*.svg";
-// import { navigate } from '@reach/router'
+//import { ReactComponent } from "*.svg";
+import { submitArticle } from "../api";
+import { navigate } from "@reach/router";
+import { React, Component } from "react";
+class NewArticleForm extends Component {
+  state = {
+    title: "",
+    body: "",
+    author: "jessjelly",
+    topic: "coding"
+  };
+  render() {
+    const { body, title } = this.state;
+    const { topic, user } = this.props;
+    return (
+      <div>
+        <button onClick={this.toggleArticle} />
+        <form onSubmit={this.handleSubmit}>
+          <textarea
+            onChange={e => this.handleChange("body", e.target.value)}
+            value={body}
+          />
+          <button>Create my article</button>
+        </form>
+      </div>
+    );
+  }
 
-// class NewArticleForm extends ReactComponent {
-//   state = {
-//     title: '',
-//     body: '',
-//     author: 'jessjelly',
-//     slug: 'coding'//maybe topic
-//   };
-//   render() {
-//   return  <div>
-//     <textarea onChange={(e) => this.handleChange('body', e.target.value)}
-//     value={body}/>
-//     <button>Create my article</button>
-//   </div>
-// }
-// }
+  //export default NewArticleForm;
+  handleChange = event => {
+    const { key, value } = event.target;
+    this.setState({ [key]: value });
+  };
+  toggleArticle = () => {
+    const { showAdd } = this.state;
+    this.setState({ showAdd: !showAdd });
+  };
 
-// export default function handleChange (key, value) => {
-//   this.setState({ [key]: value}))
-// }
-
-// export default function handleSubmit = (e) => {
-//   e.preventDefault()
-//   submitArticle(this.state).then(article => {
-//     navigate(`/articles/${article.article_id}`, {state: {new: true}})
+  handleSubmit = e => {
+    e.preventDefault();
+    submitArticle(this.state).then(article => {
+      navigate(`/articles/${article.article_id}`, { state: { new: true } });
+    });
+  };
+}
 //     //clicked, stop more clicking, when you quickly click twice it provides same article twice
 //     //key of state and object of whatever i like.
 //     //generally when you recieve data you put in state
@@ -36,5 +54,4 @@
 
 // //need to know body/title/topic to attach it to
 // //need user- based on whos logged in
-
-// export default NewArticleForm
+export default NewArticleForm;

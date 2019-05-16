@@ -39,3 +39,9 @@
 
   {/* //<StudentCard id="student" student={studentList[0]} />; // represents 1 studens
 //} */}
+
+
+
+
+
+errors... 404- non existent id 999 / non existent username / comments with id not existent/ 

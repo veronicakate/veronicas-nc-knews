@@ -9,6 +9,7 @@ import SingleArticle from "./components/SingleArticle";
 import NewArticleForm from "./components/newArticleForm";
 import ArticleList from "./components/Article.list";
 import Axios from "axios";
+import ShowError from "./components/errorHandling";
 class App extends Component {
   state = {
     articleList: [],
@@ -21,13 +22,12 @@ class App extends Component {
       <div className="App">
         <Header loggedInUser={this.logInUser} path="/" />
         <Router>
-          <Header path="/" />
-
+          <Articles path="/" />
           <ArticleList path="/articles" articleList={this.state.articleList} />
           <SingleArticle path="/articles/:articleid" />
           <NewArticleForm path="/new-article" />
-
-          <NotFound default />
+          <ShowError path="/not-found" />
+          <ShowError default />
         </Router>
       </div>
     );
