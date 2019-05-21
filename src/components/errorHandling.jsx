@@ -4,11 +4,7 @@ const ShowError = ({ location = {} }) => {
   //PROPS.LOCATION.STATE- on this path
   return (
     <div>
-      {location.state ? (
-        <h1> oops {location.state.status}</h1>
-      ) : (
-        <h1> page not found</h1>
-      )}
+      {location.state ? <h1> oops {location.state.status}</h1> : <h1 />}
       {location.state && <p> {location.state.from} not found</p>}
     </div>
   );

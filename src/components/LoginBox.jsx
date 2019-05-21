@@ -1,16 +1,18 @@
 import { getUser } from "../api";
 import React, { Component } from "react";
-
+import "../App.css";
 class LoginBox extends Component {
   state = {
     userNameInput: ""
   };
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input required={true} onChange={this.handleInput} type="text" />
-        <button> login!</button>
-      </form>
+      <div className="login">
+        <form onSubmit={this.handleSubmit}>
+          <input required={true} onChange={this.handleInput} type="text" />
+          <button className="LogInButton"> login!</button>
+        </form>
+      </div>
     );
   }
   //required true- doesnt let you move on unless you log in
@@ -23,6 +25,7 @@ class LoginBox extends Component {
   handleSubmit = e => {
     e.preventDefault();
     getUser(this.state.userNameInput).then(validUser => {
+      console.log(validUser);
       this.props.logInUser(validUser);
     });
   };

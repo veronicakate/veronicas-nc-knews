@@ -12,7 +12,7 @@ export const getArticles = query => {
 };
 
 export const getSingleArticle = query => {
-  return Axios.get(url + "articles/:articleid", { params: query }).then(
+  return Axios.get(url + "articles/:article_id", { params: query }).then(
     ({ data: { article } }) => {
       return article;
     }
@@ -20,7 +20,9 @@ export const getSingleArticle = query => {
 };
 //getting username on path
 export const getUser = username => {
-  return Axios.get(`${url}/users/{username}`).then(({ data: { username } }) => {
+  console.log(username);
+  return Axios.get(`${url}users/${username}`).then(data => {
+    console.log(data);
     return username;
   });
 };

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-
+import "../App.css";
 export default class Header extends Component {
   render() {
-    return <h1>Veronica's NC Knews</h1>;
+    return <h1 className="header">Veronica's NC Knews</h1>;
     //link to home
     //link to
   }

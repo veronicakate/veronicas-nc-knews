@@ -1,19 +1,18 @@
 import React from "react";
 import Articles from "./Articles";
 import { Link } from "@reach/router";
-
+import "../App.css";
 export default function ArticleList({ articles, loggedInUser }) {
   return (
     <div>
       {articles.map((article, index) => (
         <div>
           {" "}
-          <h1>Article List..</h1>
-          <Link to="/articles">
-            <h3>{article.title}</h3>
+          <Link to={`/articles/${index}`} className="link">
+            <h1>{article.title} </h1>
           </Link>
-          <h3>{article.author}</h3>
-          <p>{article.body}</p>{" "}
+          <p className="body">{article.body} </p>
+          <h4 className="author"> Author: {article.author}</h4>
         </div>
       ))}
     </div>
