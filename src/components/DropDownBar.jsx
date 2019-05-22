@@ -17,29 +17,20 @@ import "../App.css"
 const DropdownPage = () => {
   return (
     <ButtonToolbar>
-    <Dropdown as={ButtonGroup} >
-    
-    <Button variant="light" size="sm"  >Sort by</Button>
-  <Dropdown.Toggle  variant="info" id="dropBox" size="sm"  >
-   
+    <Dropdown as={ButtonGroup} > 
+    <Button variant="info" size="sm"  >SORT BY</Button>
+  <Dropdown.Toggle  variant="info" id="dropBox" size="sm"  > 
   </Dropdown.Toggle>
-
 <Dropdown.Menu >
-  <Dropdown.Item >Created at</Dropdown.Item>
+  <Dropdown.Item >Comment count</Dropdown.Item>
   <Dropdown.Item >Date</Dropdown.Item>
-  <Dropdown.Item >Topic</Dropdown.Item>
+  <Dropdown.Item >Votes</Dropdown.Item>
 </Dropdown.Menu>
-
 </Dropdown>
-
 </ButtonToolbar>
     )
        }
        
-
-
-
-
 export default DropdownPage;
 
 

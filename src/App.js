@@ -24,13 +24,11 @@ class App extends Component {
       <div className="App">
         
         <Header loggedInUser={this.logInUser} />
-        
         <LoginBox logInUser={this.logInUser} />
         <DropdownPage path='/' /> 
-        <Router>
-           
+        <Router>   
           <Articles loggedInUser={loggedInUser} path="/" />
-          <SingleArticle path="/articles/:articleid" />
+          <SingleArticle path="/articles/:article_id" />
           <NewArticleForm path="/new-article" />
           <ShowError default path="/error" />
         </Router>

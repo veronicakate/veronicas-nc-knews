@@ -12,15 +12,33 @@
 .link {
   color: #1414be3f;
 }
-
+.titleSingleArticle {
+  color: #1414be3f;
+}
 .body {
   color: rgb(88, 91, 94);
   display: block;
 }
+.topic {
+color: grey
+}
+
+.topicSingle {
+color: #A25353
+}
+
+.created_at {
+color: grey;
+}
 
 .author {
-  color: #0606263f;
+  color: grey
 }
+
+.comment_count {
+  color: #F07294
+}
+
 .login {
   color: rgb(47, 106, 158);
   align-content: right;
@@ -31,3 +49,7 @@
   box-align: right;
 }
 
+.votes {
+  color: teal
+  
+}

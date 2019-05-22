@@ -11,8 +11,8 @@ export const getArticles = query => {
   );
 };
 
-export const getSingleArticle = query => {
-  return Axios.get(url + "articles/:article_id", { params: query }).then(
+export const getSingleArticle = article_id => {
+  return Axios.get(url + "articles/" + article_id).then(
     ({ data: { article } }) => {
       return article;
     }

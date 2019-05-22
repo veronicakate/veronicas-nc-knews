@@ -1,6 +1,7 @@
 import { getSingleArticle } from "../api";
 import React, { Component } from "react";
 import ArticleList from "./Article.list";
+import "../App.css"
 
 class SingleArticle extends Component {
   state = {
@@ -9,7 +10,7 @@ class SingleArticle extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props.article_id);
+
     getSingleArticle(this.props.article_id).then(article => {
       this.setState({ article });
     });
@@ -18,10 +19,15 @@ class SingleArticle extends Component {
     const { article } = this.state;
     const { state: locationState } = this.props.location;
     return (
+    
       <div>
-        <p>{article.topic}</p>
-        <h2>{article.title}</h2>
-        <p> {article.body} </p>
+       
+        <h2 className="titleSingleArticle">{article.title}</h2>
+        <p className="body"> {article.body} </p> 
+        <p className="topicSingle">Topic: {article.topic}</p>
+        <p className="author">Author: {article.author}</p>
+        <p className="votes">Votes {article.votes}</p>
+        <p className="comment_count">Comment count: {article.comment_count}</p>
       </div>
     );
   }
