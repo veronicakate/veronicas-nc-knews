@@ -12,6 +12,7 @@ export const getArticles = query => {
 };
 
 export const getSingleArticle = article_id => {
+  console.log(article_id);
   return Axios.get(url + "articles/" + article_id).then(
     ({ data: { article } }) => {
       return article;
@@ -22,9 +23,18 @@ export const getSingleArticle = article_id => {
 export const getUser = username => {
   console.log(username);
   return Axios.get(`${url}users/${username}`).then(data => {
-    console.log(data);
     return username;
   });
+};
+
+export const getComments = article_id => {
+  console.log(article_id);
+  return Axios.get(url + "articles/" + article_id + "/comments").then(
+    ({ data: { comments } }) => {
+      console.log(comments);
+      return comments;
+    }
+  );
 };
 
 export const getArticlesFromUsername = username => {

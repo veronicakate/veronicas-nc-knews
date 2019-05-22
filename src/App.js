@@ -4,6 +4,7 @@ import NotFound from "./components/NotFound";
 import Articles from "./components/Articles";
 import "./App.css";
 import { Router, Link } from "@reach/router";
+import Comments from "./components/Comments";
 import LoginBox from "./components/LoginBox";
 import SingleArticle from "./components/SingleArticle";
 import NewArticleForm from "./components/newArticleForm";
@@ -22,13 +23,13 @@ class App extends Component {
     const { loggedInUser } = this.state;
     return (
       <div className="App">
-        
         <Header loggedInUser={this.logInUser} />
         <LoginBox logInUser={this.logInUser} />
-        <DropdownPage path='/' /> 
-        <Router>   
+        <DropdownPage path="/" />
+        <Router>
           <Articles loggedInUser={loggedInUser} path="/" />
           <SingleArticle path="/articles/:article_id" />
+          <Comments path="/comments" />
           <NewArticleForm path="/new-article" />
           <ShowError default path="/error" />
         </Router>
