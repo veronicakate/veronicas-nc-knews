@@ -1,11 +1,11 @@
 .header {
   color: rgb(114, 77, 161);
   align-content: center;
-  margin: 1px;
+  margin: 20px;
   align-content: center;
 }
 .App {
-  margin: 280px;
+  margin: 250px;
   display: flexbox;
   justify-content: space-evenly;
 }
@@ -23,11 +23,11 @@
 }
 .login {
   color: rgb(47, 106, 158);
-  align-content: left;
+  align-content: right;
 }
 
 .logInButton {
   color: aqua;
-  box-align: left;
+  box-align: right;
 }
 

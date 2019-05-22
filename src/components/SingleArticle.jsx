@@ -1,6 +1,7 @@
 import { getSingleArticle } from "../api";
 import React, { Component } from "react";
 import ArticleList from "./Article.list";
+
 class SingleArticle extends Component {
   state = {
     article: {},

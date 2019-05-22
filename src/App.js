@@ -10,7 +10,8 @@ import NewArticleForm from "./components/newArticleForm";
 import ArticleList from "./components/Article.list";
 import Axios from "axios";
 import ShowError from "./components/errorHandling";
-import DropDownBar from "./components/DropDownBar";
+import DropdownPage from "./components/DropDownBar";
+
 class App extends Component {
   state = {
     articleList: [],
@@ -21,12 +22,14 @@ class App extends Component {
     const { loggedInUser } = this.state;
     return (
       <div className="App">
-        <p>dropdown menu</p>
+        
         <Header loggedInUser={this.logInUser} />
+        
         <LoginBox logInUser={this.logInUser} />
-        <Router> 
+        <DropdownPage path='/' /> 
+        <Router>
+           
           <Articles loggedInUser={loggedInUser} path="/" />
-          <DropDownBar path='/' />
           <SingleArticle path="/articles/:articleid" />
           <NewArticleForm path="/new-article" />
           <ShowError default path="/error" />
@@ -44,18 +47,6 @@ class App extends Component {
   logInUser = username => {
     console.log("hello log in");
     this.setState({ loggedInUser: username });
-  };
-  toggleSelected = (id, key) => {
-    let temp = [...this.state[key]];
-    temp[id].selected = !temp[id].selected;
-    this.setState({
-      [key]: temp
-    });
-  };
-  resetThenSet = (id, stateKey) => {
-    let sorting_by = [...this.state.sorting];
-    sorting_by.forEach(item => (item.selected = false));
-    sorting_by[id].selected = true;
   };
 }
 
