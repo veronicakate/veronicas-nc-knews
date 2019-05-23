@@ -1,25 +1,22 @@
 import React, { Component } from "react";
 import { getComments } from "../api";
-
+import CommentList from "./CommentList";
 class Comments extends Component {
   state = {
-    article: {}
+    comments: []
   };
 
   componentDidMount() {
-    console.log(this.props);
-    getComments(this.props).then(article => {
-      this.setState({ article });
-    });
+    getComments(this.props.article_id)
+      .then(comments => {
+        this.setState({ comments });
+      })
+      .catch(({ response: { data, status } }) => {
+        console.log(data.message, status);
+      });
   }
   render() {
-    const { article } = this.state;
-    const { state: locationState } = this.props.location;
-    return (
-      <div>
-        <h2>{article.article}</h2>
-      </div>
-    );
+    return <CommentList comments={this.state.comments} />;
   }
 }
 

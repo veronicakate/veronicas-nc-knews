@@ -2,6 +2,7 @@ import { getSingleArticle } from "../api";
 import React, { Component } from "react";
 import ArticleList from "./Article.list";
 import "../App.css";
+import Comments from "./Comments";
 
 class SingleArticle extends Component {
   state = {
@@ -25,7 +26,7 @@ class SingleArticle extends Component {
         <p className="author">Author: {article.author}</p>
         <p className="votes">Votes {article.votes}</p>
         <p className="comment_count">Comment count: {article.comment_count}</p>
-        <h3>Comments..</h3>
+        <Comments article_id={this.props.article_id} />
       </div>
     );
   }

@@ -29,7 +29,6 @@ class App extends Component {
         <Router>
           <Articles loggedInUser={loggedInUser} path="/" />
           <SingleArticle path="/articles/:article_id" />
-          <Comments path="/comments" />
           <NewArticleForm path="/new-article" />
           <ShowError default path="/error" />
         </Router>
@@ -42,7 +41,6 @@ class App extends Component {
       this.setState({ articleList: articles });
     });
   }
-
   logInUser = username => {
     console.log("hello log in");
     this.setState({ loggedInUser: username });
