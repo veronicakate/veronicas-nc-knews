@@ -30,6 +30,7 @@ class LoginBox extends Component {
     });
   };
 }
+
 //handles submit of log in button
 
 export default LoginBox;

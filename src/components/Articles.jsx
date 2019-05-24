@@ -20,7 +20,11 @@ class Articles extends Component {
       });
   }
   render() {
-    return <ArticleList articles={this.state.articles} />;
+    return (
+      <div>
+        <ArticleList articles={this.state.articles} />;
+      </div>
+    );
   }
 }
 

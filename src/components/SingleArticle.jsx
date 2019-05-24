@@ -26,6 +26,7 @@ class SingleArticle extends Component {
         <p className="author">Author: {article.author}</p>
         <p className="votes">Votes {article.votes}</p>
         <p className="comment_count">Comment count: {article.comment_count}</p>
+        <h4 className="commentTitle">Comments..</h4>
         <Comments article_id={this.props.article_id} />
       </div>
     );

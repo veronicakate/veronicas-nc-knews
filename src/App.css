@@ -1,47 +1,49 @@
 .header {
-  color: rgb(114, 77, 161);
-  align-content: center;
-  margin: 20px;
-  align-content: center;
+  text-align: center;
+  color: rgb(50, 88, 49);
+  font-size: 50px;
+  margin: 150px;
 }
+
 .App {
-  margin: 250px;
-  display: flexbox;
-  justify-content: space-evenly;
+  margin: 230px;
+
+  display: flex;
+  flex-flow: row wrap;
 }
 .link {
-  color: #1414be3f;
+  color: #405546;
 }
 .titleSingleArticle {
-  color: #1414be3f;
+  color: #405546;
 }
 .body {
   color: rgb(88, 91, 94);
   display: block;
 }
 .topic {
-color: grey
+  color: #3e7a75;
 }
 
 .topicSingle {
-color: #A25353
+  color: #a25353;
 }
 
 .created_at {
-color: grey;
+  color: #6e917bc6;
 }
 
 .author {
-  color: grey
+  color: #4f6d61;
 }
 
 .comment_count {
-  color: #F07294
+  color: #f07294;
 }
 
 .login {
   color: rgb(47, 106, 158);
-  align-content: right;
+  align-content: left;
 }
 
 .logInButton {
@@ -50,6 +52,24 @@ color: grey;
 }
 
 .votes {
-  color: teal
-  
+  color: teal;
+}
+
+.commentTitle {
+  color: #405546;
+}
+
+.commentButton {
+  color: #494949 !important;
+  text-transform: uppercase;
+  background: #ffffff;
+  padding: 10px;
+  border: 3px solid #494949 !important;
+  border-radius: 5px;
+}
+.commentButton:hover {
+  color: #ffffff !important;
+  background: rgb(50, 88, 49);
+  border-color: rgb(50, 88, 49) !important;
+  transition: all 0.4s ease 0s;
 }
