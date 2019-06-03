@@ -1,5 +1,6 @@
 import { getSingleArticle } from "../api";
 import React, { Component } from "react";
+import { Router, Link } from "@reach/router";
 import ArticleList from "./Article.list";
 import "../App.css";
 import Comments from "./Comments";
@@ -19,10 +20,13 @@ class SingleArticle extends Component {
     const { article } = this.state;
     const { state: locationState } = this.props.location;
     return (
-      <div>
+      <div className="singleArticle">
         <h2 className="titleSingleArticle">{article.title}</h2>
         <p className="body"> {article.body} </p>
-        <p className="topicSingle">Topic: {article.topic}</p>
+        <p className="topicSingle">
+          {" "}
+          Topic: <Link to={"/articles/topics"}> {article.topic}</Link>{" "}
+        </p>
         <p className="author">Author: {article.author}</p>
         <p className="votes">Votes {article.votes}</p>
         <p className="comment_count">Comment count: {article.comment_count}</p>

@@ -12,6 +12,7 @@ import ArticleList from "./components/Article.list";
 import Axios from "axios";
 import ShowError from "./components/errorHandling";
 import DropdownPage from "./components/DropDownBar";
+import TopicList from "./components/SelectedTopicsList";
 
 class App extends Component {
   state = {
@@ -26,11 +27,15 @@ class App extends Component {
         <Header loggedInUser={this.logInUser} />
         <LoginBox logInUser={this.logInUser} />
         <DropdownPage path="/" />
+        <Link to={`/`} className="HomeLink">
+          <button className="HomeLink">Go Home</button>
+        </Link>
         <Router>
           <Articles loggedInUser={loggedInUser} path="/" />
           <SingleArticle path="/articles/:article_id" />
           <NewArticleForm path="/new-article" />
           <ShowError default path="/error" />
+          <TopicList path="/articles/topic" />
         </Router>
       </div>
     );

@@ -7,12 +7,15 @@
 
 .App {
   margin: 230px;
-
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: wrap;
+  flex-direction: row-reverse;
 }
 .link {
   color: #405546;
+}
+.singleArticle {
+  flex-flow: row wrap;
 }
 .titleSingleArticle {
   color: #405546;
@@ -30,7 +33,7 @@
 }
 
 .created_at {
-  color: #6e917bc6;
+  color: #64836fc6;
 }
 
 .author {
@@ -42,15 +45,33 @@
 }
 
 .login {
-  color: rgb(47, 106, 158);
-  align-content: left;
+  background: rgb(47, 106, 158);
+  width: 45px;
+  font-size: 12pt;
+  font-family: "Times New Roman";
+  position: absolute;
+  top: 0;
+  right: 50;
 }
 
-.logInButton {
+/* .logInButton {
   color: aqua;
-  box-align: right;
+  line-height: 20px;
+  width: 18px;
+  font-size: 28pt;
+  font-family: tahoma;
+  margin-top: 1px;
+  margin-right: 2px;
+  position: absolute;
+  top: 0;
+  right: 0;
+} */
+.homeLink {
+  width: 45px;
+  position: absolute;
+  top: 0;
+  left: 50;
 }
-
 .votes {
   color: teal;
 }

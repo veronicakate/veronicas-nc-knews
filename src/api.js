@@ -28,13 +28,19 @@ export const getUser = username => {
 };
 
 export const getComments = article_id => {
-  console.log(article_id);
   return Axios.get(url + "articles/" + article_id + "/comments").then(
     ({ data: { comments } }) => {
       console.log(comments);
       return comments;
     }
   );
+};
+export const getTopics = topic => {
+  console.log(topic);
+  return Axios.get(url + "articles/" + topic).then(({ data: { topic } }) => {
+    console.log(topic);
+    return topic;
+  });
 };
 
 export const getArticlesFromUsername = username => {

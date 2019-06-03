@@ -11,9 +11,7 @@ class Comments extends Component {
       .then(comments => {
         this.setState({ comments });
       })
-      .catch(({ response: { data, status } }) => {
-        console.log(data.message, status);
-      });
+      .catch(({ response: { data, status } }) => {});
   }
   render() {
     return <CommentList comments={this.state.comments} />;

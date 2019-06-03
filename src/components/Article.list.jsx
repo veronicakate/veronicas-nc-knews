@@ -14,9 +14,8 @@ export default function ArticleList({ articles, loggedInUser }) {
           <p className="body">{article.body} </p>
           <div align="right">
             <h4 className="author"> Author: {article.author} </h4>
-
             <h5 className="topic">Topic: {article.topic}</h5>
-            <p className="created_at">Created: {article.created_at}</p>
+            <h5 className="created_at">Created: {article.created_at}</h5>
             <Link to={`/articles/${article.article_id}`} className="link">
               <button className="commentButton">Comments</button>
             </Link>
