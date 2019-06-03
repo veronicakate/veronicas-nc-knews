@@ -24,13 +24,21 @@ class LoginBox extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    getUser(this.state.userNameInput).then(validUser => {
-      console.log(validUser);
-      this.props.logInUser(validUser);
-    });
+    const { userNameInput } = this.state;
+    getUser(userNameInput)
+      .then(validUser => {
+        console.log(userNameInput);
+        this.props.logInUser(validUser.username);
+      })
+      .catch(error => {
+        // handle catch
+        console.log("error:" + JSON.stringify(error));
+      });
   };
 }
 
 //handles submit of log in button
 
 export default LoginBox;
+
+//

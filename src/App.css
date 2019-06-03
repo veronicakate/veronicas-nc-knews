@@ -2,11 +2,11 @@
   text-align: center;
   color: rgb(50, 88, 49);
   font-size: 50px;
-  margin: 150px;
+  margin: 130px;
 }
 
 .App {
-  margin: 230px;
+  margin: 200px;
   display: flex;
   flex-flow: wrap;
   flex-direction: row-reverse;
@@ -46,12 +46,13 @@
 
 .login {
   background: rgb(47, 106, 158);
-  width: 45px;
+  width: 50px;
+  margin: 50px;
   font-size: 12pt;
   font-family: "Times New Roman";
   position: absolute;
   top: 0;
-  right: 50;
+  right: 60;
 }
 
 /* .logInButton {
@@ -71,6 +72,12 @@
   position: absolute;
   top: 0;
   left: 50;
+  color: #494949;
+  text-transform: uppercase;
+  background: #ffffff;
+  padding: 10px;
+  border: 3px solid #494949;
+  border-radius: 5px;
 }
 .votes {
   color: teal;

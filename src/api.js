@@ -22,8 +22,8 @@ export const getSingleArticle = article_id => {
 //getting username on path
 export const getUser = username => {
   //console.log(username);
-  return Axios.get(`${url}users/${username}`).then(data => {
-    return username;
+  return Axios.get(`${url}users/${username}`).then(({ data: { user } }) => {
+    return user;
   });
 };
 
@@ -37,7 +37,7 @@ export const getComments = article_id => {
 };
 export const getTopics = topic => {
   console.log(topic);
-  return Axios.get(url + "articles/" + topic).then(({ data: { topic } }) => {
+  return Axios.get(`${url}/topic}`).then(({ data: { topic } }) => {
     console.log(topic);
     return topic;
   });

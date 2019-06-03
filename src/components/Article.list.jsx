@@ -6,7 +6,7 @@ export default function ArticleList({ articles, loggedInUser }) {
   return (
     <div>
       {articles.map(article => (
-        <div>
+        <div key={article.article_id}>
           {" "}
           <Link to={`/articles/${article.article_id}`} className="link">
             <h1>{article.title} </h1>

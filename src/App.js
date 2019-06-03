@@ -17,25 +17,32 @@ import TopicList from "./components/SelectedTopicsList";
 class App extends Component {
   state = {
     articleList: [],
-    loggedInUser: ""
+    loggedInUser: null,
+    error: false
   };
+  catchErrors(error, info) {
+    this.setState({ error: true });
+  }
   render() {
     const { articles, loading } = this.state;
     const { loggedInUser } = this.state;
+    if (this.state.error === true) {
+      return <h1>Something went wrong</h1>;
+    }
     return (
       <div className="App">
-        <Header loggedInUser={this.logInUser} />
-        <LoginBox logInUser={this.logInUser} />
+        <Header />
+        <LoginBox logInUser={this.signInUser} />
         <DropdownPage path="/" />
         <Link to={`/`} className="HomeLink">
           <button className="HomeLink">Go Home</button>
         </Link>
         <Router>
-          <Articles loggedInUser={loggedInUser} path="/" />
+          <Articles logInUser={this.signInUser} path="/" />
           <SingleArticle path="/articles/:article_id" />
           <NewArticleForm path="/new-article" />
           <ShowError default path="/error" />
-          <TopicList path="/articles/topic" />
+          <TopicList path="/topic" />
         </Router>
       </div>
     );
@@ -46,8 +53,8 @@ class App extends Component {
       this.setState({ articleList: articles });
     });
   }
-  logInUser = username => {
-    console.log("hello log in");
+  signInUser = username => {
+    console.log();
     this.setState({ loggedInUser: username });
   };
 }

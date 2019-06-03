@@ -1,13 +1,15 @@
 import React, { Component } from "react";
-import { getTopics } from "../api";
+import { getTopics, getArticles } from "../api";
 
 import TopicList from "./SelectedTopicsList";
+import Axios from "axios";
 class Topics extends Component {
   state = {
-    comments: []
+    topics: []
   };
 
   componentDidMount() {
+    console.log(this.props);
     getTopics(this.props.topic)
       .then(topics => {
         this.setState({ topics });
@@ -22,3 +24,28 @@ class Topics extends Component {
 }
 
 export default Topics;
+
+//articlespage-
+// getArticlesByUser = () =>{
+//   const author = jessjelly;
+//   getArticles({author, limit}).then( articles => {
+//     this.setState({articles})
+//   })
+// }
+// // render () {
+//   const {articles} = this.state;
+//   return (
+//     <div>
+
+//     </div>
+//   )
+// }
+
+// export const getArticles = query => {
+//   return Axios.get(`${url}/articles`, {
+// params:
+// }
+//   }).then(({ data: {articles})) => {
+//     reutrn articles
+//   }
+// }

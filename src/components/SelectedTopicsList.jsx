@@ -1,13 +1,13 @@
 import React from "react";
 import "../App.css";
 
-export default function TopicList({ topic }) {
-  console.log(topic);
+export default function TopicList({ topics }) {
+  console.log(topics);
   return (
     <div>
-      {topic.map(topic => (
+      {topics.map(topic => (
         <div>
-          <p className="body">{topic.body} </p>
+          <p className="topicBody">{topic.body} </p>
         </div>
       ))}
     </div>
