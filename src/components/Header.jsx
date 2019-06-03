@@ -7,11 +7,6 @@ export default class Header extends Component {
     //link to
   }
   componentDidMount() {
-    return (
-      <div>
-        {" "}
-        <h1>NC Knews Home</h1>;
-      </div>
-    );
+    return <div />;
   }
 }

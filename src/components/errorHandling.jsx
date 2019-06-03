@@ -11,3 +11,10 @@ const ShowError = ({ location = {} }) => {
 };
 
 export default ShowError;
+// catchErrors(error, info) {
+//   this.setState({ error: true });
+// }
+
+// if (this.state.error === true) {
+//   return <h1>Something went wrong</h1>;
+// }

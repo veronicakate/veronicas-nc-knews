@@ -6,6 +6,7 @@ import "./App.css";
 import { Router, Link } from "@reach/router";
 import Comments from "./components/Comments";
 import LoginBox from "./components/LoginBox";
+import LogOutBox from "./components/LogOutBox";
 import SingleArticle from "./components/SingleArticle";
 import NewArticleForm from "./components/newArticleForm";
 import ArticleList from "./components/Article.list";
@@ -20,21 +21,18 @@ class App extends Component {
     loggedInUser: null,
     error: false
   };
-  catchErrors(error, info) {
-    this.setState({ error: true });
-  }
+
   render() {
     const { articles, loading } = this.state;
     const { loggedInUser } = this.state;
-    if (this.state.error === true) {
-      return <h1>Something went wrong</h1>;
-    }
+
     return (
       <div className="App">
         <Header />
         <LoginBox logInUser={this.signInUser} />
+        <LogOutBox />
         <DropdownPage path="/" />
-        <Link to={`/`} className="HomeLink">
+        <Link to={`/`}>
           <button className="HomeLink">Go Home</button>
         </Link>
         <Router>

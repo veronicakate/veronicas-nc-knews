@@ -1,26 +1,17 @@
 import { getUser } from "../api";
 import React, { Component } from "react";
 import "../App.css";
-class LoginBox extends Component {
-  state = {
-    userNameInput: ""
-  };
+class LogOutBox extends Component {
+  state = {};
   render() {
     return (
-      <div className="login">
+      <div className="logOut">
         <form onSubmit={this.handleSubmit}>
-          <input required={true} onChange={this.handleInput} type="text" />
-          <button className="LogInButton"> Login!</button>
+          <button className="LogOutButton"> Logout</button>
         </form>
       </div>
     );
   }
-  //required true- doesnt let you move on unless you log in
-  //should also have log out box
-  handleInput = e => {
-    this.setState({ userNameInput: e.target.value });
-  };
-  //handles input of loginbox
 
   handleSubmit = e => {
     e.preventDefault();
@@ -31,12 +22,9 @@ class LoginBox extends Component {
         this.props.logInUser(validUser.username);
       })
       .catch(error => {
-        // handle catch
         console.log("error:" + JSON.stringify(error));
       });
   };
 }
 
-export default LoginBox;
-
-//
+export default LogOutBox;
