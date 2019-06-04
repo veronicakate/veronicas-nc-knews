@@ -5,15 +5,14 @@
   flex-direction: row-reverse;
 }
 .header {
-  margin: 20px;
-  padding: 170px;
+  padding: 0px;
   color: rgb(50, 88, 49);
   font-size: 80px;
   font-family: "Times New Roman";
   text-align: center;
   position: center;
-  margin: 180px;
-  padding: 10px;
+  margin: 30px;
+  padding: 70px;
   display: inline-flex;
   border-radius: 50px;
 }
@@ -70,17 +69,27 @@
   border: 30px solid #494949 !important;
   border-radius: 90px;
 }
-.container {
-  position: relative;
+
+.articleForm {
+  position: center;
+  margin: 250px;
 }
 .HomeLink {
   position: absolute;
   background-color: #ae79a1;
-  border-radius: 80px;
-  margin: 90px;
+  border-radius: 10px;
+  margin: 100px;
   top: 10px;
-  left: 20px;
+  left: 170px;
   font-size: 20px;
+}
+.articleButton {
+  color: #494949 !important;
+  text-transform: uppercase;
+  background: #ffffff;
+  padding: 32px;
+  border: 5px solid #494949 !important;
+  border-radius: 7px;
 }
 
 .votes {

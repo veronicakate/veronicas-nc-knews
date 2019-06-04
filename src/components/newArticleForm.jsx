@@ -1,34 +1,55 @@
 //import { ReactComponent } from "*.svg";
 import { submitArticle } from "../api";
 import { navigate } from "@reach/router";
-import { React, Component } from "react";
+import React, { Component } from "react";
 
 class NewArticleForm extends Component {
   state = {
     title: "",
     body: "",
-    author: "jessjelly",
-    topic: "coding"
+    author: "",
+    topic: ""
   };
   render() {
+    console.log(this.state);
     const { body, title } = this.state;
-    // const { topic, author } = this.props;
+    const { topic, author } = this.props;
     return (
-      <form id="articleForm" onSubmit={this.handleSubmit}>
-        <button onClick={this.toggleArticle} />
-        title: <input type="text" name="title-input" id="title-input" />
-        body: <input type="text" name="body-input" id="body-input" />
-        author: <input type="text" name="author-input" id="author-input" />
-        topic: <input type="text" name="topic-input" id="topic-input" />
-        <textarea
-          onChange={e => this.handleChange("body", e.target.value)}
-          value={body}
+      <article className="articleForm" onSubmit={this.handleSubmit}>
+        <h6>Title:</h6>{" "}
+        <input
+          type="text"
+          name="title-input"
+          id="title-input"
+          value=""
+          onChange={this.handleChange}
         />
-        <button>Create my article</button>
-      </form>
+        <h6>Body:</h6>{" "}
+        <input
+          type="text"
+          name="body-input"
+          id="body-input"
+          onChange={this.handleChange}
+        />
+        <h6>Author:</h6>
+        <input
+          onChange={this.handleChange}
+          type="text"
+          name="author-input"
+          id="author-input"
+        />
+        <h6>Topic:</h6>{" "}
+        <input
+          onChange={this.handleChange}
+          type="text"
+          name="topic-input"
+          id="topic-input"
+        />
+        <button className="articleButton">Add article</button>
+      </article>
     );
   }
-
+  //how is this effecting the state, not adding to state.
   // handleChange = event => {
   //   const { key, value } = event.target;
   //   this.setState({ [key]: value });
@@ -36,10 +57,10 @@ class NewArticleForm extends Component {
   handleChange = event => {
     this.setState({ [event.target.value]: event.target.value });
   };
-  toggleArticle = () => {
-    const { showAddedArticle } = this.state;
-    this.setState({ showAddedArticle: !showAddedArticle });
-  };
+  // toggleArticle = () => {
+  //   const { showAddedArticle } = this.state;
+  //   this.setState({ showAddedArticle: !showAddedArticle });
+  // };
 
   handleSubmit = event => {
     event.preventDefault();

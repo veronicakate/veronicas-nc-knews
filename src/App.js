@@ -10,7 +10,6 @@ import SingleArticle from "./components/SingleArticle";
 import NewArticleForm from "./components/newArticleForm";
 import ArticleList from "./components/Article.list";
 import Axios from "axios";
-
 import DropdownPage from "./components/DropDownBar";
 import TopicList from "./components/SelectedTopicsList";
 
@@ -33,8 +32,6 @@ class App extends Component {
         <Router>
           <Articles logInUser={this.signInUser} path="/" />
           <SingleArticle path="/articles/:article_id" />
-          <NewArticleForm path="/article " logInUser={this.signInUser} />
-
           <TopicList path="/topic" />
         </Router>
       </div>

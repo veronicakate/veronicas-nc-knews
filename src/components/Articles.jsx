@@ -5,6 +5,8 @@ import { Router, Link } from "@reach/router";
 import { navigate } from "@reach/router";
 import ArticleList from "./Article.list";
 import NewArticleForm from "./newArticleForm";
+import SingleArticle from "./SingleArticle";
+import DropdownPage from "./DropDownBar";
 
 class Articles extends Component {
   state = {
@@ -23,11 +25,14 @@ class Articles extends Component {
   render() {
     return (
       <div>
-        <ArticleList articles={this.state.articles} />;
-        {this.props.loggedInUser && <NewArticleForm />}
+        <NewArticleForm path="/" logInUser={this.signInUser} />
+        <DropdownPage path="/" />
+        <ArticleList articles={this.state.articles} path="/" />
       </div>
     );
   }
 }
 
 export default Articles;
+
+//this.props.loggedInUser &&

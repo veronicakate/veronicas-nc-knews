@@ -4,7 +4,7 @@ import { Router, Link } from "@reach/router";
 import ArticleList from "./Article.list";
 import "../App.css";
 import Comments from "./Comments";
-import newArticleForm from "./newArticleForm";
+import { newArticle } from "./newArticleForm";
 
 class SingleArticle extends Component {
   state = {
@@ -22,10 +22,10 @@ class SingleArticle extends Component {
     const { state: locationState } = this.props.location;
     return (
       <article className="singleArticle">
-        {this.props.location.state &&
-          this.props.location.state.newArticleForm && (
-            <h2>hello, you posted an article</h2>
-          )}
+        {console.log(this.props.location.state)}
+        {this.props.location.state && this.props.location.state.newArticle && (
+          <h2>hello, you posted an article</h2>
+        )}
         <h2 className="titleSingleArticle">{article.title}</h2>
         <p className="body"> {article.body} </p>
         <p className="topicSingle">
@@ -43,10 +43,6 @@ class SingleArticle extends Component {
 }
 
 export default SingleArticle;
-
-/* {locationState && locationState.new && (
-          <p>Congrats you just posted a new article!</p>
-        )} */
 
 //saying this.set there is an object with key of article and want to pull off value with that key but also syaing i want to call that article article- short hand for article:article
 //generally want to keep the same name of things.

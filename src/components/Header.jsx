@@ -5,16 +5,11 @@ export default class Header extends Component {
   render() {
     return (
       <div>
-        {" "}
         <h1 className="header">Veronica's NC Knews</h1>;
-        <Link to={`/`} classname="container">
+        <Link to={`/`} className="container">
           <button className="HomeLink">Home!</button>
         </Link>
       </div>
     );
-  }
-
-  componentDidMount() {
-    return <div />;
   }
 }
