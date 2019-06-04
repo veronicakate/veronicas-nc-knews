@@ -4,6 +4,7 @@ import { Router, Link } from "@reach/router";
 import ArticleList from "./Article.list";
 import "../App.css";
 import Comments from "./Comments";
+import newArticleForm from "./newArticleForm";
 
 class SingleArticle extends Component {
   state = {
@@ -20,7 +21,11 @@ class SingleArticle extends Component {
     const { article } = this.state;
     const { state: locationState } = this.props.location;
     return (
-      <div className="singleArticle">
+      <article className="singleArticle">
+        {this.props.location.state &&
+          this.props.location.state.newArticleForm && (
+            <h2>hello, you posted an article</h2>
+          )}
         <h2 className="titleSingleArticle">{article.title}</h2>
         <p className="body"> {article.body} </p>
         <p className="topicSingle">
@@ -32,7 +37,7 @@ class SingleArticle extends Component {
         <p className="comment_count">Comment count: {article.comment_count}</p>
         <h4 className="commentTitle">Comments..</h4>
         <Comments article_id={this.props.article_id} />
-      </div>
+      </article>
     );
   }
 }

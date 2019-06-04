@@ -7,10 +7,16 @@ class LoginBox extends Component {
   };
   render() {
     return (
-      <div className="login">
+      <div align="centre" className="login">
+        <br />
+        <h5>Please sign in with a valid username..</h5>
         <form onSubmit={this.handleSubmit}>
           <input required={true} onChange={this.handleInput} type="text" />
-          <button className="LogInButton"> Login!</button>
+          <button className="LogInButton" type="submit">
+            {" "}
+            Login!
+          </button>
+          <button className="LogOutButton"> Logout </button>
         </form>
       </div>
     );
@@ -27,7 +33,6 @@ class LoginBox extends Component {
     const { userNameInput } = this.state;
     getUser(userNameInput)
       .then(validUser => {
-        console.log(userNameInput);
         this.props.logInUser(validUser.username);
       })
       .catch(error => {

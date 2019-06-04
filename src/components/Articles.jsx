@@ -4,6 +4,7 @@ import { getArticles } from "../api";
 import { Router, Link } from "@reach/router";
 import { navigate } from "@reach/router";
 import ArticleList from "./Article.list";
+import NewArticleForm from "./newArticleForm";
 
 class Articles extends Component {
   state = {
@@ -23,6 +24,7 @@ class Articles extends Component {
     return (
       <div>
         <ArticleList articles={this.state.articles} />;
+        {this.props.loggedInUser && <NewArticleForm />}
       </div>
     );
   }

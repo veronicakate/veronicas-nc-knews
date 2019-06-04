@@ -49,8 +49,10 @@ export const getArticlesFromUsername = username => {
   });
 };
 //body is data i want to send
-export const submitArticle = body => {
-  return Axios.post(`${url}/articles/`, body).then(({ data: article }) => {
-    return article;
-  });
+export const submitArticle = (title, username, body, topic) => {
+  return Axios.post(`${url}/articles`, title, username, body, topic).then(
+    ({ data: article }) => {
+      return article;
+    }
+  );
 };

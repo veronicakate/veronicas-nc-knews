@@ -2,6 +2,7 @@
 import { submitArticle } from "../api";
 import { navigate } from "@reach/router";
 import { React, Component } from "react";
+
 class NewArticleForm extends Component {
   state = {
     title: "",
@@ -11,35 +12,46 @@ class NewArticleForm extends Component {
   };
   render() {
     const { body, title } = this.state;
-    const { topic, user } = this.props;
+    // const { topic, author } = this.props;
     return (
-      <div>
+      <form id="articleForm" onSubmit={this.handleSubmit}>
         <button onClick={this.toggleArticle} />
-        <form onSubmit={this.handleSubmit}>
-          <textarea
-            onChange={e => this.handleChange("body", e.target.value)}
-            value={body}
-          />
-          <button>Create my article</button>
-        </form>
-      </div>
+        title: <input type="text" name="title-input" id="title-input" />
+        body: <input type="text" name="body-input" id="body-input" />
+        author: <input type="text" name="author-input" id="author-input" />
+        topic: <input type="text" name="topic-input" id="topic-input" />
+        <textarea
+          onChange={e => this.handleChange("body", e.target.value)}
+          value={body}
+        />
+        <button>Create my article</button>
+      </form>
     );
   }
 
+  // handleChange = event => {
+  //   const { key, value } = event.target;
+  //   this.setState({ [key]: value });
+  // };
   handleChange = event => {
-    const { key, value } = event.target;
-    this.setState({ [key]: value });
+    this.setState({ [event.target.value]: event.target.value });
   };
   toggleArticle = () => {
     const { showAddedArticle } = this.state;
     this.setState({ showAddedArticle: !showAddedArticle });
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
-    submitArticle(this.state).then(article => {
-      navigate(`/articles/${article.article_id}`, { state: { new: true } });
-    });
+  handleSubmit = event => {
+    event.preventDefault();
+    const { title, body, topic } = this.state;
+    const username = this.props.loggedInUser;
+    submitArticle({ title, body, username, topic })
+      .then(article => {
+        navigate(`/articles/${article.article_id}`, {
+          state: { newArticle: true }
+        });
+      })
+      .catch(err => console.error(err));
   };
 }
 //     //clicked, stop more clicking, when you quickly click twice it provides same article twice
