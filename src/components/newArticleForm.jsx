@@ -15,38 +15,39 @@ class NewArticleForm extends Component {
     const { body, title } = this.state;
     const { topic, author } = this.props;
     return (
-      <article className="articleForm" onSubmit={this.handleSubmit}>
-        <h6>Title:</h6>{" "}
-        <input
-          type="text"
-          name="title-input"
-          id="title-input"
-          value=""
-          onChange={this.handleChange}
-        />
-        <h6>Body:</h6>{" "}
-        <input
-          type="text"
-          name="body-input"
-          id="body-input"
-          onChange={this.handleChange}
-        />
-        <h6>Author:</h6>
-        <input
-          onChange={this.handleChange}
-          type="text"
-          name="author-input"
-          id="author-input"
-        />
-        <h6>Topic:</h6>{" "}
-        <input
-          onChange={this.handleChange}
-          type="text"
-          name="topic-input"
-          id="topic-input"
-        />
-        <button className="articleButton">Add article</button>
-      </article>
+      <div>
+        <form className="articleForm" onSubmit={this.handleSubmit}>
+          <h6>Title:</h6>{" "}
+          <input
+            type="text"
+            name="title-input"
+            id="title-input"
+            onChange={this.handleChange}
+          />
+          <h6>Body:</h6>{" "}
+          <input
+            type="text"
+            name="body-input"
+            id="body-input"
+            onChange={this.handleChange}
+          />
+          <h6>Author:</h6>
+          <input
+            onChange={this.handleChange}
+            type="text"
+            name="author-input"
+            id="author-input"
+          />
+          <h6>Topic:</h6>{" "}
+          <input
+            onChange={this.handleChange}
+            type="text"
+            name="topic-input"
+            id="topic-input"
+          />
+          <button className="articleButton">Add article</button>
+        </form>
+      </div>
     );
   }
   //how is this effecting the state, not adding to state.
@@ -55,7 +56,7 @@ class NewArticleForm extends Component {
   //   this.setState({ [key]: value });
   // };
   handleChange = event => {
-    this.setState({ [event.target.value]: event.target.value });
+    this.setState({ title: event.target.value });
   };
   // toggleArticle = () => {
   //   const { showAddedArticle } = this.state;
