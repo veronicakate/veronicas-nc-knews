@@ -28,7 +28,13 @@ class App extends Component {
     return (
       <div className="App">
         <Header path="/" />
-        <LoginBox path="/" logInUser={this.signInUser} signout={this.logOut} />
+        <LoginBox
+          path="/"
+          loggedInUser={loggedInUser}
+          logInUser={this.signInUser}
+          isLoggedIn={this.state.isLoggedIn}
+          signout={this.logOut}
+        />
         <Router>
           <Articles logInUser={this.signInUser} path="/" />
           <SingleArticle path="/articles/:article_id" />
@@ -53,7 +59,6 @@ class App extends Component {
     this.setState({ loggedInUser: "" });
   };
 }
-
 export default App;
 
 //<ArticleList path="/articles" articleList={this.state.articleList} />

@@ -7,6 +7,7 @@ import ArticleList from "./Article.list";
 import NewArticleForm from "./newArticleForm";
 import SingleArticle from "./SingleArticle";
 import DropdownPage from "./DropDownBar";
+import { submitArticle } from "../api";
 
 class Articles extends Component {
   state = {
@@ -23,16 +24,33 @@ class Articles extends Component {
       });
   }
   render() {
+    const { topics, user } = this.props;
+    const { articles } = this.state;
     return (
       <div>
-        <NewArticleForm path="/" logInUser={this.signInUser} />
-        <DropdownPage path="/" />
+        <NewArticleForm
+          topics={topics}
+          user={user}
+          toggleAddArticle={this.toggleAddArticle}
+          path="/"
+          logInUser={this.signInUser}
+        />
+        <DropdownPage sortArticles={this.sortArticles} path="/" />
         <ArticleList articles={this.state.articles} path="/" />
       </div>
     );
   }
+  sortArticles = articles => {
+    this.setState({ articles });
+  };
+  postArticle = (title, topic, body, username) => {
+    submitArticle(title, topic, body, username).then(article => {
+      this.setState(prevState => ({
+        articles: [article, ...prevState.articles]
+      }));
+    });
+  };
 }
-
 export default Articles;
 
 //this.props.loggedInUser &&

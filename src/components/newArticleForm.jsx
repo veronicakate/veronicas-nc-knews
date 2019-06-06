@@ -8,44 +8,89 @@ class NewArticleForm extends Component {
     title: "",
     body: "",
     author: "",
-    topic: ""
+    topic: "",
+    showArticle: false,
+    isThereAnError: false,
+    error: ""
   };
   render() {
-    console.log(this.state);
-    const { body, title } = this.state;
-    const { topic, author } = this.props;
+    const { body, title, showArticle, isThereAnError, error } = this.state;
+    const { topics, user } = this.props;
+    // if (isThereAnError) return <Error error={error} />;
     return (
       <div>
         <form className="articleForm" onSubmit={this.handleSubmit}>
-          <h6>Title:</h6>{" "}
+          <h3>Add article..</h3>
+          <label className="title">
+            {" "}
+            <h6> Title:</h6>
+          </label>
           <input
             type="text"
             name="title-input"
             id="title-input"
             onChange={this.handleChange}
           />
-          <h6>Body:</h6>{" "}
+          <label className="Body">
+            {" "}
+            <h6> Body:</h6>
+          </label>
           <input
             type="text"
             name="body-input"
             id="body-input"
             onChange={this.handleChange}
           />
-          <h6>Author:</h6>
+          <label className="Author">
+            {" "}
+            <h6> Author:</h6>
+          </label>
           <input
             onChange={this.handleChange}
             type="text"
             name="author-input"
             id="author-input"
           />
-          <h6>Topic:</h6>{" "}
-          <input
-            onChange={this.handleChange}
-            type="text"
-            name="topic-input"
-            id="topic-input"
-          />
-          <button className="articleButton">Add article</button>
+          <label>
+            <h6>Select topic:</h6>
+          </label>
+          <select>
+            <option
+              type="text"
+              name="topic-input"
+              id="topic-input"
+              onChange={this.handleChange}
+              value="football"
+            >
+              Football
+            </option>
+            <option
+              type="text"
+              name="topic-input"
+              id="topic-input"
+              onChange={this.handleChange}
+              value="cooking"
+            >
+              Cooking
+            </option>
+            <option
+              type="text"
+              name="topic-input"
+              id="topic-input"
+              onChange={this.handleChange}
+              value="coding"
+            >
+              Coding
+            </option>
+          </select>
+          <br />
+          <button
+            type="submit"
+            className="articleButton"
+            onClick={this.toggleArticle}
+          >
+            {showArticle ? "cancel" : ` Submit `}{" "}
+          </button>
         </form>
       </div>
     );
@@ -58,24 +103,25 @@ class NewArticleForm extends Component {
   handleChange = event => {
     this.setState({ title: event.target.value });
   };
-  // toggleArticle = () => {
-  //   const { showAddedArticle } = this.state;
-  //   this.setState({ showAddedArticle: !showAddedArticle });
-  // };
+
+  toggleArticle = () => {
+    const { showArticle } = this.state;
+    this.setState({ showAddedArticle: !showArticle });
+  };
 
   handleSubmit = event => {
     event.preventDefault();
     const { title, body, topic } = this.state;
-    const username = this.props.loggedInUser;
-    submitArticle({ title, body, username, topic })
-      .then(article => {
-        navigate(`/articles/${article.article_id}`, {
-          state: { newArticle: true }
-        });
-      })
-      .catch(err => console.error(err));
+    const user = this.props.loggedInUser;
+    submitArticle({ title, body, user, topic }).then(article => {
+      navigate(`/articles/${article.article_id}`);
+    });
+    this.setState({ title: "", topic: "", body: "" });
+    // state: { newArticle: true }
+    //     .catch(err => console.error(err));
   };
 }
+
 //     //clicked, stop more clicking, when you quickly click twice it provides same article twice
 //     //key of state and object of whatever i like.
 //     //generally when you recieve data you put in state

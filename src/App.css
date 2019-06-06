@@ -72,7 +72,8 @@
 
 .articleForm {
   position: center;
-  margin: 250px;
+  margin: 300px;
+  flex-direction: column;
 }
 .HomeLink {
   position: absolute;
