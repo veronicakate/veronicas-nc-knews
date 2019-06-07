@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { navigate } from "@reach/router";
 import { addCommentByArticleId } from "../api";
 
 class CommentForm extends Component {
@@ -9,6 +10,7 @@ class CommentForm extends Component {
 
   render() {
     const { body } = this.state;
+    const { article_id } = this.props;
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -29,8 +31,11 @@ class CommentForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { body } = this.state;
-    const { article_id, newComment } = this.props;
-    addCommentByArticleId(newComment);
+    const { article_id } = this.props;
+    addCommentByArticleId(article_id).then(comment => {
+      navigate(`/articles/${article_id}`);
+    });
+    console.log(body);
     this.setState({ body: "" });
   };
 }

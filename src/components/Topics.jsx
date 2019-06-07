@@ -25,28 +25,3 @@ class Topics extends Component {
 }
 
 export default Topics;
-
-//articlespage-
-// getArticlesByUser = () =>{
-//   const author = jessjelly;
-//   getArticles({author, limit}).then( articles => {
-//     this.setState({articles})
-//   })
-// }
-// // render () {
-//   const {articles} = this.state;
-//   return (
-//     <div>
-
-//     </div>
-//   )
-// }
-
-// export const getArticles = query => {
-//   return Axios.get(`${url}/articles`, {
-// params:
-// }
-//   }).then(({ data: {articles})) => {
-//     reutrn articles
-//   }
-// }

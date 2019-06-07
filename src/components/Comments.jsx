@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { getComments } from "../api";
 import CommentList from "./CommentList";
+
 class Comments extends Component {
   state = {
     comments: []

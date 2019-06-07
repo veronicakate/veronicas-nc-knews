@@ -11,7 +11,7 @@ import Voting from "./Voting";
 class SingleArticle extends Component {
   state = {
     article: {},
-    comments: []
+    comment: []
   };
 
   componentDidMount() {
@@ -20,7 +20,7 @@ class SingleArticle extends Component {
     });
   }
   render() {
-    const { article } = this.state;
+    const { article, comment } = this.state;
     const { state: locationState } = this.props.location;
     return (
       <article className="singleArticle">
@@ -35,12 +35,12 @@ class SingleArticle extends Component {
           Topic: <Link to={"/articles/topics"}> {article.topic}</Link>{" "}
         </p>
         <p className="author">Author: {article.author}</p>
-        <p className="votes">Votes {article.votes}</p>
         <p className="comment_count">Comment count: {article.comment_count}</p>
+        <Voting votes={article.votes} article_id={article.article_id} />
         <h4 className="commentTitle">Comments..</h4>
         <Comments article_id={this.props.article_id} />
-        <Voting votes={article.votes} article_id={article.article_id} />
-        <CommentForm path="/comments" />
+        {/* <Voting votes={comment.votes} comment_id={comment.comment_id} /> */}
+        <CommentForm article_id={this.props.article_id} />
       </article>
     );
   }
