@@ -42,7 +42,10 @@ class SingleArticle extends Component {
         <h4 className="commentTitle">Comments..</h4>
         <Comments article_id={this.props.article_id} />
         {/* <Voting votes={comment.votes} comment_id={comment.comment_id} /> */}
-        <CommentForm article_id={this.props.article_id} />
+        <CommentForm
+          article_id={this.props.article_id}
+          loggedInUser={this.props.loggedInUser}
+        />
         {console.log(this.props)}
         {/* <SelectedTopicList topic={this.props.topic} /> */}
       </article>

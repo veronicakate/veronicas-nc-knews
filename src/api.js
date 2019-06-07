@@ -49,10 +49,10 @@ export const getArticleById = article_id => {
     }
   );
 };
-export const addCommentByArticleId = (body, article_id, username) => {
+export const addCommentByArticleId = (article_id, { body, author }) => {
   return Axios.post(`${url}articles/${article_id}/comments`, {
-    body,
-    username
+    body: body,
+    username: author
   }).then(({ data: { body } }) => {
     return body;
   });

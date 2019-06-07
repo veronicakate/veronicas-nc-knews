@@ -30,9 +30,12 @@ class CommentForm extends Component {
 
     const { body } = this.state;
     console.log(this.props);
-    const { article_id, loggedInUser } = this.props;
-    console.log("CommentForm line 33", article_id, loggedInUser);
-    addCommentByArticleId(body, article_id, loggedInUser).then(comment => {
+    const { article_id } = this.props;
+    console.log(article_id);
+    addCommentByArticleId(this.props.article_id, {
+      body: this.state.body,
+      author: this.props.user
+    }).then(comment => {
       navigate(`/articles/${article_id}`);
     });
 
