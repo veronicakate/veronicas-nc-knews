@@ -21,7 +21,8 @@ class App extends Component {
     articleList: [],
     loggedInUser: "",
     error: false,
-    topics: []
+    topics: "",
+    body: ""
   };
 
   render() {
@@ -42,7 +43,10 @@ class App extends Component {
         />
         <Router>
           <Articles logInUser={this.signInUser} path="/" />
-          <SingleArticle path="/articles/:article_id" />
+          <SingleArticle
+            path="/articles/:article_id"
+            loggedInUser={loggedInUser}
+          />
           <Topics
             path="/articles/topics"
             topics={this.getTopic}
@@ -70,7 +74,7 @@ class App extends Component {
 
   getTopic = () => {
     getTopics().then(topics => {
-      this.setState({ topics });
+      this.setState({ topics: topics });
     });
   };
 }

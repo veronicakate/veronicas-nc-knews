@@ -7,11 +7,13 @@ import Comments from "./Comments";
 import { newArticle } from "./newArticleForm";
 import CommentForm from "./CommentForm";
 import Voting from "./Voting";
+import SelectedTopicList from "./SelectedTopicsList";
 
 class SingleArticle extends Component {
   state = {
     article: {},
-    comment: []
+    comment: [],
+    topic: {}
   };
 
   componentDidMount() {
@@ -24,7 +26,7 @@ class SingleArticle extends Component {
     const { state: locationState } = this.props.location;
     return (
       <article className="singleArticle">
-        {console.log(this.props.location.state)}
+        {console.log(this.props)}
         {this.props.location.state && this.props.location.state.newArticle && (
           <h2>hello, you posted an article</h2>
         )}
@@ -41,6 +43,8 @@ class SingleArticle extends Component {
         <Comments article_id={this.props.article_id} />
         {/* <Voting votes={comment.votes} comment_id={comment.comment_id} /> */}
         <CommentForm article_id={this.props.article_id} />
+        {console.log(this.props)}
+        {/* <SelectedTopicList topic={this.props.topic} /> */}
       </article>
     );
   }

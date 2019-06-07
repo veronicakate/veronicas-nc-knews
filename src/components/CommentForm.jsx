@@ -4,13 +4,10 @@ import { addCommentByArticleId } from "../api";
 
 class CommentForm extends Component {
   state = {
-    comment: [],
     body: ""
   };
 
   render() {
-    const { body } = this.state;
-    const { article_id } = this.props;
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -30,13 +27,20 @@ class CommentForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+
     const { body } = this.state;
-    const { article_id } = this.props;
-    addCommentByArticleId(article_id).then(comment => {
+    console.log(this.props);
+    const { article_id, loggedInUser } = this.props;
+    console.log("CommentForm line 33", article_id, loggedInUser);
+    addCommentByArticleId(body, article_id, loggedInUser).then(comment => {
       navigate(`/articles/${article_id}`);
     });
-    console.log(body);
-    this.setState({ body: "" });
+
+    this.setState = currentState => {
+      console.log(body);
+      return { comments: [body, ...currentState] };
+    };
   };
 }
+
 export default CommentForm;

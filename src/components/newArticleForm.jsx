@@ -28,8 +28,9 @@ class NewArticleForm extends Component {
           <input
             type="text"
             name="title"
+            value={title}
             id="title-input"
-            onChange={this.handleTitleChange}
+            onChange={this.handleChange}
             required
           />
           <label className="Body">
@@ -39,15 +40,16 @@ class NewArticleForm extends Component {
           <input
             type="text"
             name="body"
+            value={body}
             id="body-input"
-            onChange={this.handleBodyChange}
+            onChange={this.handleChange}
           />
           <label className="Author">
             {" "}
             <h6> Author:</h6>
           </label>
           <input
-            onChange={this.handleAuthorChange}
+            onChange={this.handleChange}
             type="text"
             name="author"
             id="author-input"
@@ -60,7 +62,7 @@ class NewArticleForm extends Component {
               type="text"
               name="topic"
               id="topic-input"
-              onChange={this.handleTopicChange}
+              onChange={this.handleChange}
               value="football"
             >
               Football
@@ -69,7 +71,7 @@ class NewArticleForm extends Component {
               type="text"
               name="topic-input"
               id="topic-input"
-              onChange={this.handleTopicChange}
+              onChange={this.handleChange}
               value="cooking"
             >
               Cooking
@@ -78,7 +80,7 @@ class NewArticleForm extends Component {
               type="text"
               name="topic-input"
               id="topic-input"
-              onChange={this.handleTopicChange}
+              onChange={this.handleChange}
               value="coding"
             >
               Coding
@@ -101,19 +103,20 @@ class NewArticleForm extends Component {
   //   const { key, value } = event.target;
   //   this.setState({ [key]: value });
   // };
-  handleTitleChange = event => {
-    this.setState({ title: event.target.value });
+  handleChange = event => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
   };
 
-  handleBodyChange = event => {
-    this.setState({ body: event.target.value });
-  };
-  handleAuthorChange = event => {
-    this.setState({ author: event.target.value });
-  };
-  handleTopicChange = event => {
-    this.setState({ topic: event.target.value });
-  };
+  // handleBodyChange = event => {
+  //   this.setState({ body: event.target.value });
+  // };
+  // handleAuthorChange = event => {
+  //   this.setState({ author: event.target.value });
+  // };
+  // handleTopicChange = event => {
+  //   this.setState({ topic: event.target.value });
+  // };
   toggleArticle = () => {
     const { showArticle } = this.state;
     this.setState({ showAddedArticle: !showArticle });

@@ -27,7 +27,7 @@ class LoginBox extends Component {
             Login!{" "}
           </button>
 
-          {anError && <p>invalid login username</p>}
+          {anError && <p>invalid login username, try 'jessjelly'</p>}
 
           <button
             className="LogOutButton"

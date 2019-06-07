@@ -6,21 +6,21 @@ import Axios from "axios";
 import Navigation from "./navigation";
 class Topics extends Component {
   state = {
-    topics: []
+    topic: []
   };
 
   componentDidMount() {
     console.log(this.props);
     getTopics(this.props.topic)
-      .then(topics => {
-        this.setState({ topics });
+      .then(topic => {
+        this.setState({ topic });
       })
       .catch(({ response: { data, status } }) => {
         console.log(data.message, status);
       });
   }
   render() {
-    return <TopicList path="/topics" topics={this.state.topics} />;
+    return <TopicList path="/topics" topics={this.state.topic} />;
   }
 }
 

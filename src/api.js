@@ -42,19 +42,20 @@ export const getTopics = topic => {
     return topic;
   });
 };
-export const articlebyid = article_id => {
+export const getArticleById = article_id => {
   return Axios.get(`${url}articles/${article_id}`).then(
     ({ data: { article } }) => {
       return article;
     }
   );
 };
-export const addCommentByArticleId = article_id => {
-  return Axios.post(`${url}articles/${article_id}/comments`).then(
-    ({ data: { comments } }) => {
-      return comments;
-    }
-  );
+export const addCommentByArticleId = (body, article_id, username) => {
+  return Axios.post(`${url}articles/${article_id}/comments`, {
+    body,
+    username
+  }).then(({ data: { body } }) => {
+    return body;
+  });
 };
 
 export const getArticlesFromUsername = username => {
@@ -66,7 +67,11 @@ export const getArticlesFromUsername = username => {
 };
 //body is data i want to send
 export const submitArticle = (title, author, body, topic) => {
-  return Axios.post(url).then(({ data: { article } }) => {
+  return Axios.post(`${url}/topics/${topic}/articles`, {
+    title,
+    body,
+    author
+  }).then(({ data: { article } }) => {
     return article;
   });
 };
