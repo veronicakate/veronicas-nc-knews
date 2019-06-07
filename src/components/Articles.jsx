@@ -8,6 +8,7 @@ import NewArticleForm from "./newArticleForm";
 import SingleArticle from "./SingleArticle";
 import DropdownPage from "./DropDownBar";
 import { submitArticle } from "../api";
+import Voting from "./Voting";
 
 class Articles extends Component {
   state = {

@@ -27,9 +27,10 @@ class NewArticleForm extends Component {
           </label>
           <input
             type="text"
-            name="title-input"
+            name="title"
             id="title-input"
             onChange={this.handleChange}
+            required
           />
           <label className="Body">
             {" "}
@@ -37,18 +38,18 @@ class NewArticleForm extends Component {
           </label>
           <input
             type="text"
-            name="body-input"
+            name="body"
             id="body-input"
-            onChange={this.handleChange}
+            onChange={this.handleTitleChange}
           />
           <label className="Author">
             {" "}
             <h6> Author:</h6>
           </label>
           <input
-            onChange={this.handleChange}
+            onChange={this.handleAuthorChange}
             type="text"
-            name="author-input"
+            name="author"
             id="author-input"
           />
           <label>
@@ -57,9 +58,9 @@ class NewArticleForm extends Component {
           <select>
             <option
               type="text"
-              name="topic-input"
+              name="topic"
               id="topic-input"
-              onChange={this.handleChange}
+              onChange={this.handleTopicChange}
               value="football"
             >
               Football
@@ -68,7 +69,7 @@ class NewArticleForm extends Component {
               type="text"
               name="topic-input"
               id="topic-input"
-              onChange={this.handleChange}
+              onChange={this.handleTopicChange}
               value="cooking"
             >
               Cooking
@@ -77,7 +78,7 @@ class NewArticleForm extends Component {
               type="text"
               name="topic-input"
               id="topic-input"
-              onChange={this.handleChange}
+              onChange={this.handleTopicChange}
               value="coding"
             >
               Coding
@@ -100,10 +101,19 @@ class NewArticleForm extends Component {
   //   const { key, value } = event.target;
   //   this.setState({ [key]: value });
   // };
-  handleChange = event => {
+  handleTitleChange = event => {
     this.setState({ title: event.target.value });
   };
 
+  handleBodyChange = event => {
+    this.setState({ body: event.target.value });
+  };
+  handleAuthorChange = event => {
+    this.setState({ author: event.target.value });
+  };
+  handleTopicChange = event => {
+    this.setState({ topic: event.target.value });
+  };
   toggleArticle = () => {
     const { showArticle } = this.state;
     this.setState({ showAddedArticle: !showArticle });

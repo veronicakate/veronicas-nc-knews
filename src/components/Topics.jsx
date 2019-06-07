@@ -3,6 +3,7 @@ import { getTopics, getArticles } from "../api";
 
 import TopicList from "./SelectedTopicsList";
 import Axios from "axios";
+import Navigation from "./navigation";
 class Topics extends Component {
   state = {
     topics: []
@@ -19,7 +20,7 @@ class Topics extends Component {
       });
   }
   render() {
-    return <TopicList topics={this.state.topics} />;
+    return <TopicList path="/topics" topics={this.state.topics} />;
   }
 }
 

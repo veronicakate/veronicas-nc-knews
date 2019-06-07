@@ -11,23 +11,29 @@ import NewArticleForm from "./components/newArticleForm";
 import ArticleList from "./components/Article.list";
 import Axios from "axios";
 import DropdownPage from "./components/DropDownBar";
-import TopicList from "./components/SelectedTopicsList";
+import Topics from "./components/Topics";
+import { getTopics } from "./api";
+import Navigation from "./components/navigation";
+import CommentForm from "./components/CommentForm";
 
 class App extends Component {
   state = {
     articleList: [],
     loggedInUser: "",
-    error: false
+    error: false,
+    topics: []
   };
 
   render() {
     console.log(this.state.loggedInUser);
     const { articles, loading } = this.state;
+    const { topics } = this.props;
     const { loggedInUser } = this.state;
 
     return (
       <div className="App">
         <Header path="/" />
+
         <LoginBox
           path="/"
           loggedInUser={loggedInUser}
@@ -38,7 +44,7 @@ class App extends Component {
         <Router>
           <Articles logInUser={this.signInUser} path="/" />
           <SingleArticle path="/articles/:article_id" />
-          <TopicList path="/topic" />
+          <Topics path="/topics" topics={topics} loggedInUser={loggedInUser} />
         </Router>
       </div>
     );
@@ -57,6 +63,12 @@ class App extends Component {
   logOut = () => {
     console.log(this.state.loggedInUser);
     this.setState({ loggedInUser: "" });
+  };
+
+  getTopic = () => {
+    getTopics().then(topics => {
+      this.setState({ topics });
+    });
   };
 }
 export default App;

@@ -42,6 +42,20 @@ export const getTopics = topic => {
     return topic;
   });
 };
+export const articlebyid = article_id => {
+  return Axios.get(`${url}/articles/${article_id}`).then(
+    ({ data: { article } }) => {
+      return article;
+    }
+  );
+};
+export const addCommentByArticleId = article_id => {
+  return Axios.post(`${url}/articles/${article_id}/comments`).then(
+    ({ data: { comment } }) => {
+      return comment;
+    }
+  );
+};
 
 export const getArticlesFromUsername = username => {
   return Axios.get(`${url}/users/{username}`).then(({ data: { username } }) => {
@@ -50,11 +64,14 @@ export const getArticlesFromUsername = username => {
 };
 //body is data i want to send
 export const submitArticle = (title, author, body, topic) => {
-  return Axios.post(`${url}/`, { title, author, body, topic }).then(
-    ({ data: article }) => {
-      return article;
-    }
-  );
+  return Axios.post(`${url}/`, {
+    title: this.state.title,
+    author: this.state.author,
+    body: this.state.body,
+    topic: this.state.topic
+  }).then(({ data: article }) => {
+    return article;
+  });
 };
 export const sortedArticles = (sort_by, order, limit) => {
   return Axios.get(
@@ -62,4 +79,13 @@ export const sortedArticles = (sort_by, order, limit) => {
   ).then(({ data: article }) => {
     return article;
   });
+};
+export const voteIt = async (article_id, direction, comment_id) => {
+  const URL = comment_id
+    ? `${url}/articles/${article_id}/comments/${comment_id}`
+    : `${url}/articles/${article_id}`;
+  const { data } = await Axios.patch(url, {
+    inc_votes: direction
+  });
+  return data.article;
 };
