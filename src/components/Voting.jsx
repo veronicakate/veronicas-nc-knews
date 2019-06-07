@@ -17,8 +17,8 @@ class Voting extends Component {
           {" "}
           Yay, thumbs up.
         </button>
-        <br></br>
-        <p classNAme="actualVotez"> Votes: {votes + voteChange}</p>
+        <br />
+
         <button
           className="downVote"
           onClick={() => this.addVote(-1)}
@@ -27,15 +27,18 @@ class Voting extends Component {
           {" "}
           No, dislike.
         </button>
+        <p className="actualVotez"> Votes: {votes + voteChange}</p>
       </div>
     );
   }
   addVote = direction => {
     const { article_id, comment_id } = this.props;
-    if (comment_id) {
-      voteIt({ comment_id, direction, article_id });
-      this.setState({ voteChange: direction });
-    }
+
+    voteIt({ comment_id, direction, article_id });
+    this.setState(prevState => {
+      return { voteChange: prevState.voteChange + direction };
+    });
   };
 }
+
 export default Voting;

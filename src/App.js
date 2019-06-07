@@ -27,8 +27,7 @@ class App extends Component {
   render() {
     console.log(this.state.loggedInUser);
     const { articles, loading } = this.state;
-    const { topics } = this.props;
-    const { loggedInUser } = this.state;
+    const { loggedInUser, topics } = this.state;
 
     return (
       <div className="App">
@@ -44,7 +43,11 @@ class App extends Component {
         <Router>
           <Articles logInUser={this.signInUser} path="/" />
           <SingleArticle path="/articles/:article_id" />
-          <Topics path="/topics" topics={topics} loggedInUser={loggedInUser} />
+          <Topics
+            path="/articles/topics"
+            topics={this.getTopic}
+            loggedInUser={loggedInUser}
+          />
         </Router>
       </div>
     );

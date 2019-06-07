@@ -10,19 +10,20 @@ class CommentForm extends Component {
   render() {
     const { body } = this.state;
     return (
-      <body>
+      <div>
         <form onSubmit={this.handleSubmit}>
           <h6> Add comment here.. </h6>
-          <textarea value="body" onChange={this.handleChange}>
+          <textarea onChange={this.handleChange}> </textarea>
+          <button type="submit" onClick={this.handleSubmit}>
             {" "}
-          </textarea>
-          <button type="submit"> Submit comment here..</button>
+            Submit..
+          </button>
         </form>
-      </body>
+      </div>
     );
   }
   handleChange = e => {
-    this.setstate({ body: e.target.value });
+    this.setState({ body: e.target.value });
   };
 
   handleSubmit = e => {

@@ -64,12 +64,12 @@ export const getArticlesFromUsername = username => {
 };
 //body is data i want to send
 export const submitArticle = (title, author, body, topic) => {
-  return Axios.post(`${url}/`, {
-    title: this.state.title,
-    author: this.state.author,
-    body: this.state.body,
-    topic: this.state.topic
-  }).then(({ data: article }) => {
+  return Axios.post(url, {
+    title,
+    author,
+    body,
+    topic
+  }).then(({ data: { article } }) => {
     return article;
   });
 };
@@ -80,12 +80,13 @@ export const sortedArticles = (sort_by, order, limit) => {
     return article;
   });
 };
-export const voteIt = async (article_id, direction, comment_id) => {
+export const voteIt = (article_id, direction, comment_id) => {
   const URL = comment_id
     ? `${url}/articles/${article_id}/comments/${comment_id}`
     : `${url}/articles/${article_id}`;
-  const { data } = await Axios.patch(url, {
+  return Axios.patch(URL, {
     inc_votes: direction
+  }).then(({ data: article }) => {
+    return article;
   });
-  return data.article;
 };

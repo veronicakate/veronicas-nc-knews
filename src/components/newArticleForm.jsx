@@ -29,7 +29,7 @@ class NewArticleForm extends Component {
             type="text"
             name="title"
             id="title-input"
-            onChange={this.handleChange}
+            onChange={this.handleTitleChange}
             required
           />
           <label className="Body">
@@ -40,7 +40,7 @@ class NewArticleForm extends Component {
             type="text"
             name="body"
             id="body-input"
-            onChange={this.handleTitleChange}
+            onChange={this.handleBodyChange}
           />
           <label className="Author">
             {" "}

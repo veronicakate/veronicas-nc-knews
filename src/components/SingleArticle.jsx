@@ -39,7 +39,6 @@ class SingleArticle extends Component {
         <p className="comment_count">Comment count: {article.comment_count}</p>
         <h4 className="commentTitle">Comments..</h4>
         <Comments article_id={this.props.article_id} />
-        <p> Vote:{article.votes}</p>
         <Voting votes={article.votes} article_id={article.article_id} />
         <CommentForm path="/comments" />
       </article>
