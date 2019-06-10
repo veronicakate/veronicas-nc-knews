@@ -10,7 +10,13 @@ export const getArticles = query => {
     }
   );
 };
-
+export const getTopics = query => {
+  return Axios.get(url + "topics", { params: query }).then(
+    ({ data: { topic } }) => {
+      return topic;
+    }
+  );
+};
 export const getSingleArticle = article_id => {
   //console.log(article_id);
   return Axios.get(url + "articles/" + article_id).then(
@@ -35,13 +41,7 @@ export const getComments = article_id => {
     }
   );
 };
-export const getTopics = topic => {
-  console.log(topic);
-  return Axios.get(`${url}/topic}`).then(({ data: { topic } }) => {
-    console.log(topic);
-    return topic;
-  });
-};
+
 export const getArticleById = article_id => {
   return Axios.get(`${url}articles/${article_id}`).then(
     ({ data: { article } }) => {
@@ -49,25 +49,35 @@ export const getArticleById = article_id => {
     }
   );
 };
-export const addCommentByArticleId = (article_id, { body, author }) => {
-  return Axios.post(`${url}articles/${article_id}/comments`, {
-    body: body,
-    username: author
-  }).then(({ data: { body } }) => {
-    return body;
+// export const addCommentByArticleId = (article_id, { body, author }) => {
+//   return Axios.post(url + "articles/" + article_id + "/comments", {
+//     body: body,
+//     username: author
+//   }).then(({ data: { body } }) => {
+//     return body;
+//   });
+// };
+
+export const addCommentByArticleId = async (article_id, body, author) => {
+  const { data } = await Axios.post(
+    url + "articles/" + article_id + "/comments",
+    {
+      body: body
+    }
+  ).then(({ data: { body } }) => {
+    return { body };
+    //return { ...data.comment };
   });
 };
 
 export const getArticlesFromUsername = username => {
-  return Axios.get(`${url}/users/${username}`).then(
-    ({ data: { username } }) => {
-      return username;
-    }
-  );
+  return Axios.get(`${url}users/${username}`).then(({ data: { username } }) => {
+    return username;
+  });
 };
 //body is data i want to send
 export const submitArticle = (title, author, body, topic) => {
-  return Axios.post(`${url}/topics/${topic}/articles`, {
+  return Axios.post(`${url}topics/${topic}/articles`, {
     title,
     body,
     author
@@ -75,17 +85,17 @@ export const submitArticle = (title, author, body, topic) => {
     return article;
   });
 };
-export const sortedArticles = (sort_by, order, limit) => {
-  return Axios.get(
-    `${url}/articles?sort_by=${sort_by}&order=${order}&limit=${limit}`
-  ).then(({ data: article }) => {
-    return article;
-  });
+export const sortedArticles = async (sort_by, order) => {
+  const { data } = await Axios.get(
+    `${url}articles?sort_by=${sort_by}&order=${order}`
+  );
+  return data.articles;
 };
+
 export const voteIt = (article_id, direction, comment_id) => {
   const URL = comment_id
-    ? `${url}/articles/${article_id}/comments/${comment_id}`
-    : `${url}/articles/${article_id}`;
+    ? `${url}articles/${article_id}/comments/${comment_id}`
+    : `${url}articles/${article_id}`;
   return Axios.patch(URL, {
     inc_votes: direction
   }).then(({ data: article }) => {

@@ -15,13 +15,15 @@ import Topics from "./components/Topics";
 import { getTopics } from "./api";
 import Navigation from "./components/navigation";
 import CommentForm from "./components/CommentForm";
+import Auth from "./components/authentication"
+import {getUser} from "./api"
 
 class App extends Component {
   state = {
     articleList: [],
     loggedInUser: "",
     error: false,
-    topics: "",
+    topics: [],
     body: ""
   };
 
@@ -33,7 +35,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header path="/" />
-
+{/* <Auth user={loggedInUser} login={this.signInUser} /> */}
         <LoginBox
           path="/"
           loggedInUser={loggedInUser}
@@ -42,17 +44,18 @@ class App extends Component {
           signout={this.logOut}
         />
         <Router>
-          <Articles logInUser={this.signInUser} path="/" />
+          <Articles logInUser={this.signInUser} topics={topics} path="/" />
           <SingleArticle
             path="/articles/:article_id"
             loggedInUser={loggedInUser}
           />
-          <Topics
+          {/* <Topics
             path="/articles/topics"
-            topics={this.getTopic}
+            topics={topics}
             loggedInUser={loggedInUser}
-          />
+          /> */}
         </Router>
+        
       </div>
     );
   }
@@ -64,20 +67,21 @@ class App extends Component {
     });
   }
   signInUser = username => {
-    this.setState({ loggedInUser: username });
+this.setState({ loggedInUser: username });
+    
   };
+  componentDidUpdate(){
+    this.handleSave()
+  }
+  handleSave = () => {
+    localStorage.setItem('state', JSON.stringify(this.state))
+  }
 
   logOut = () => {
-    console.log(this.state.loggedInUser);
     this.setState({ loggedInUser: "" });
   };
-
-  getTopic = () => {
-    getTopics().then(topics => {
-      this.setState({ topics: topics });
-    });
-  };
 }
+
 export default App;
 
 //<ArticleList path="/articles" articleList={this.state.articleList} />

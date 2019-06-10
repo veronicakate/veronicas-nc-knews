@@ -12,9 +12,33 @@ import Voting from "./Voting";
 
 class Articles extends Component {
   state = {
-    articles: []
+    articles: [],
+    submitArticle: false,
+    isLoading: true,
+    hasErr: false,
+    error: ""
     //articledeleted?
   };
+
+  render() {
+    const { articles, isLoading, hasErr, error } = this.state;
+    const { topic, user } = this.props;
+
+    return (
+      <div>
+        <NewArticleForm
+          topics={topic}
+          user={user}
+          toggleAddArticle={this.toggleAddArticle}
+          path="/"
+          logInUser={this.signInUser}
+        />
+        <DropdownPage sortArticles={this.sortArticles} />
+        <ArticleList articles={this.state.articles} path="/" />
+      </div>
+    );
+  }
+
   componentDidMount() {
     getArticles()
       .then(articles => {
@@ -24,22 +48,8 @@ class Articles extends Component {
         console.log(data.message, status);
       });
   }
-  render() {
-    const { topics, user } = this.props;
-    const { articles } = this.state;
-    return (
-      <div>
-        <NewArticleForm
-          topics={topics}
-          user={user}
-          toggleAddArticle={this.toggleAddArticle}
-          path="/"
-          logInUser={this.signInUser}
-        />
-        <DropdownPage sortArticles={this.sortArticles} path="/" />
-        <ArticleList articles={this.state.articles} path="/" />
-      </div>
-    );
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.topic !== this.props.topic) this.fetchArticle();
   }
   sortArticles = articles => {
     this.setState({ articles });
@@ -50,6 +60,19 @@ class Articles extends Component {
         articles: [article, ...prevState.articles]
       }));
     });
+  };
+  fetchArticle = () => {
+    const { topic } = this.props;
+    const { error } = this.state;
+
+    getArticles(topic)
+      .then(articles => {
+        this.setState({ articles, isLoading: false });
+      })
+      .catch(() => this.setState({ error }));
+  };
+  resetState = () => {
+    this.setState({ hasErr: false, err: "" });
   };
 }
 export default Articles;

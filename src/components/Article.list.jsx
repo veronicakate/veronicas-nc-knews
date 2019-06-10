@@ -1,5 +1,5 @@
 import React from "react";
-import Articles from "./Articles";
+
 import { Link } from "@reach/router";
 import "../App.css";
 export default function ArticleList({ articles, loggedInUser }) {

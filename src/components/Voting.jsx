@@ -33,7 +33,6 @@ class Voting extends Component {
   }
   addVote = direction => {
     const { article_id, comment_id } = this.props;
-
     voteIt({ comment_id, direction, article_id });
     this.setState(prevState => {
       return { voteChange: prevState.voteChange + direction };
