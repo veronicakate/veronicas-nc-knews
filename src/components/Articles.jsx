@@ -4,7 +4,7 @@ import { getArticles } from "../api";
 import { Router, Link } from "@reach/router";
 import { navigate } from "@reach/router";
 import ArticleList from "./Article.list";
-import NewArticleForm from "./newArticleForm";
+import NewArticleForm from "./NewArticleForm";
 import SingleArticle from "./SingleArticle";
 import DropdownPage from "./DropDownBar";
 import { submitArticle } from "../api";
@@ -33,24 +33,22 @@ class Articles extends Component {
           path="/"
           logInUser={this.signInUser}
         />
-        <DropdownPage sortArticles={this.sortArticles} />
+
         <ArticleList articles={this.state.articles} path="/" />
       </div>
     );
   }
 
-  componentDidMount() {
-    getArticles()
-      .then(articles => {
-        this.setState({ articles });
-      })
-      .catch(({ response: { data, status } }) => {
-        console.log(data.message, status);
-      });
-  }
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.topic !== this.props.topic) this.fetchArticle();
-  }
+  // componentDidMount() {
+  //   getArticles()
+  //     .then(articles => {
+  //       this.setState({ articles });
+  //     })
+  //     .catch(({ response: { data, status } }) => {
+  //       console.log(data.message, status);
+  //     });
+  // }
+
   sortArticles = articles => {
     this.setState({ articles });
   };
@@ -76,5 +74,3 @@ class Articles extends Component {
   };
 }
 export default Articles;
-
-//this.props.loggedInUser &&

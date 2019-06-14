@@ -4,10 +4,11 @@ import { Router, Link } from "@reach/router";
 import ArticleList from "./Article.list";
 import "../App.css";
 import Comments from "./Comments";
-import { newArticle } from "./newArticleForm";
+import { newArticle } from "./NewArticleForm";
 import CommentForm from "./CommentForm";
 import Voting from "./Voting";
 import SelectedTopicList from "./SelectedTopicsList";
+import {addVote, patchCommentVote} from "./Voting"
 
 class SingleArticle extends Component {
   state = {
@@ -24,9 +25,10 @@ class SingleArticle extends Component {
   render() {
     const { article, comments } = this.state;
     const { state: locationState } = this.props.location;
+    // handlevote handledelete = props
     return (
       <article className="singleArticle">
-        {console.log(this.props)}
+        <div>
         {this.props.location.state && this.props.location.state.newArticle && (
           <h2>hello, you posted an article</h2>
         )}
@@ -39,9 +41,31 @@ class SingleArticle extends Component {
         </p>
         <p className="author">Author: {article.author}</p>
         <p className="comment_count">Comment count: {article.comment_count}</p>
+         <div>
+{this.props.isLoggedIn === article.author && (
+  <button onClick={() =>{
+    handleDelete(article.article_id)
+  }}
+> delete article </button>
+)} </div>
+<p> {article.body}</p>
+{props.loggedInUser && (
+  <button diasabled={props.patchCommentVote === 1}
+  onClick={() => {
+    addVote(1)
+  }}> like </button> <div>
+  <button disabled={props.patchCommentVote === -1} onClick={() => {
+    addVote(-1)
+}} > dislike</button> )}
+<h3> total likes: {article.votes + props.changevotes}</h3>
+  </div>
+  <div>
         <Voting votes={article.votes} article_id={article.article_id} />
         <h4 className="commentTitle">Comments..</h4>
-        <Comments article_id={this.props.article_id} comments={article.article_id}/>
+        <Comments
+          article_id={this.props.article_id}
+          comments={article.article_id}
+        />
         <Voting
           votes={comments.votes}
           comment_id={comments.comment_id}
@@ -53,12 +77,11 @@ class SingleArticle extends Component {
           loggedInUser={this.props.loggedInUser}
           handleNewComment={this.handleNewComment}
         />
-        {console.log(this.props)}
-        {/* <SelectedTopicList topic={this.props.topic} /> */}
-      </article>
-    );
-  }
+    
+  
 
+</article>
+</div>
   handleNewComment = newComment => {
     const currentComment = this.state.comments;
     const restOfComments = [newComment, ...currentComment];
@@ -67,8 +90,11 @@ class SingleArticle extends Component {
     }));
   };
 }
-export default SingleArticle;
+  
 
-//saying this.set there is an object with key of article and want to pull off value with that key but also syaing i want to call that article article- short hand for article:article
-//generally want to keep the same name of things.
-//giving name of state locationstate becuase another state is confusing.
+
+
+
+
+
+export default SingleArticle;

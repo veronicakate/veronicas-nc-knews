@@ -1,29 +1,21 @@
 import React, { Component } from "react";
 import Header from "./components/Header";
-import NotFound from "./components/NotFound";
 import Articles from "./components/Articles";
 import "./App.css";
 import { Router, Link } from "@reach/router";
-import Comments from "./components/Comments";
-import LoginBox from "./components/LoginBox";
+import Login from "./components/LoginBox";
 import SingleArticle from "./components/SingleArticle";
-import NewArticleForm from "./components/newArticleForm";
-import ArticleList from "./components/Article.list";
 import Axios from "axios";
-import DropdownPage from "./components/DropDownBar";
 import Topics from "./components/Topics";
-import { getTopics } from "./api";
-import Navigation from "./components/navigation";
-import CommentForm from "./components/CommentForm";
-import Auth from "./components/authentication"
-import {getUser} from "./api"
 
 class App extends Component {
   state = {
     articleList: [],
-    loggedInUser: "",
+    loggedInUser: null,
     error: false,
-    topics: [],
+    topics: "",
+    comments: [],
+    loading: false,
     body: ""
   };
 
@@ -34,28 +26,29 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Header path="/" />
-{/* <Auth user={loggedInUser} login={this.signInUser} /> */}
-        <LoginBox
+        <Header
           path="/"
-          loggedInUser={loggedInUser}
-          logInUser={this.signInUser}
-          isLoggedIn={this.state.isLoggedIn}
-          signout={this.logOut}
+          loggedInUser={this.state.loggedInUser}
+          logOutUser={this.logOut}
+        />
+
+        <Login
+          path="/"
+          logInUser={this.state.loggedInUser}
+          logOut={this.logOut}
         />
         <Router>
           <Articles logInUser={this.signInUser} topics={topics} path="/" />
           <SingleArticle
             path="/articles/:article_id"
-            loggedInUser={loggedInUser}
+            loggedInUser={this.signInUser}
           />
-          {/* <Topics
+          <Topics
             path="/articles/topics"
-            topics={topics}
-            loggedInUser={loggedInUser}
-          /> */}
+            topics={this.state.topics}
+            loggedInUser={this.state.loggedInUser}
+          />
         </Router>
-        
       </div>
     );
   }
@@ -66,22 +59,28 @@ class App extends Component {
       this.setState({ articleList: articles });
     });
   }
-  signInUser = username => {
-this.setState({ loggedInUser: username });
-    
-  };
-  componentDidUpdate(){
-    this.handleSave()
+  componentDidUpdate() {
+    this.handleSave();
   }
   handleSave = () => {
-    localStorage.setItem('state', JSON.stringify(this.state))
-  }
+    localStorage.setItem("state", JSON.stringify.apply(this.state));
+  };
+  getTopics = () => {
+    this.getTopics().then(topics => {
+      this.setState({ topics });
+    });
+  };
+  signInUser = user => {
+    console.log("hi log in", user);
+    this.setState({ loggedInUser: user });
+    localStorage.setItem("loggedInUser", user);
+  };
 
-  logOut = () => {
+  logOut = e => {
+    e.preventDefault();
     this.setState({ loggedInUser: "" });
+    localStorage.removeItem("loggedInUser");
   };
 }
 
 export default App;
-
-//<ArticleList path="/articles" articleList={this.state.articleList} />

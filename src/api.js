@@ -10,12 +10,10 @@ export const getArticles = query => {
     }
   );
 };
-export const getTopics = query => {
-  return Axios.get(url + "topics", { params: query }).then(
-    ({ data: { topic } }) => {
-      return topic;
-    }
-  );
+export const getTopics = () => {
+  return Axios.get(url + "topics").then(({ data: { topics } }) => {
+    return topics;
+  });
 };
 export const getSingleArticle = article_id => {
   //console.log(article_id);
@@ -27,7 +25,7 @@ export const getSingleArticle = article_id => {
 };
 //getting username on path
 export const getUser = username => {
-  //console.log(username);
+  //console.log(username);	  //console.log(username);
   return Axios.get(`${url}users/${username}`).then(({ data: { user } }) => {
     return user;
   });
@@ -101,4 +99,12 @@ export const voteIt = (article_id, direction, comment_id) => {
   }).then(({ data: article }) => {
     return article;
   });
+};
+
+export const postComment = (comment, article_id) => {
+  return Axios.post(url + "articles/" + article_id + "/comments", comment).then(
+    ({ data: { comment } }) => {
+      return comment;
+    }
+  );
 };

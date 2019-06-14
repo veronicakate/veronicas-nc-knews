@@ -1,74 +1,83 @@
 import React, { Component } from "react";
 import { Router, Link } from "@reach/router";
-import { sortedArticles } from "../api";
+import { getUser, getTopics } from "../api";
 import "../App.css";
 
 class DropdownPage extends Component {
   state = {
-    sort_by: "created_at",
-    order: "DESC"
+    topics: [],
+    users: []
   };
+
+  componentDidMount() {
+    getTopics().then(topics => {
+      this.setState({ topics: topics });
+    });
+    getUser().then(users => {
+      this.setState({ users: users });
+    });
+  }
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <div>
         <div>
-          <label> Sort by </label>
-          <select
-            id="sort_by"
-            className="chosenSort"
-            onChange={this.handleSortBy}
-            defaultValue="created_at"
-          >
-            <option value="created_at" defaultValue>
-              Date added
-            </option>
-            <option value="votes"> Votes</option>
-            <option value="comment_count"> Comments</option>
-            <option value="author"> Author</option>
+          <label name="topicLabel"> Topic :</label>
+          <select onChange={this.props.handleTopic}>
+            {" "}
+            <option value="-1">All topics</option>
+            {this.state.topics.map((topic, index) => {
+              return (
+                <option value={topic.slug} key={index}>
+                  {topic.slug}
+                </option>
+              );
+            })}
           </select>
         </div>
         <div>
-          <label className="orderText"> Order: </label>
+          <label> Sort order </label>
+          <select
+            id="order"
+            className="chosenSort"
+            onChange={this.props.handleOrder}
+            defaultValue="created_at"
+          >
+            <option value="asc" defaultValue>
+              ascending
+            </option>
+            <option value="desc">descending</option>
+          </select>
+          {/* <option value="votes"> Votes</option>
+          <option value="comment_count"> Comments</option>
+          <option value="author"> Author</option> */}
+        </div>
+
+        <div>
+          <label className="orderText"> Sort by: </label>
           <select
             id="order"
             className="ordersort"
-            onChange={this.handleOrder}
-            defaultValue="DESC"
+            onChange={this.props.handleSortBy}
           >
-            <option value="ASC">ascending</option>
-            <option value="DESC">descending</option>
+            <option value="author">author</option>
+            <option value="topic">topic</option>
+            <option value="title">title</option>
+            <option value="votes">votes</option>
           </select>
           <button type="submit" className="SubmitButton">
             Sort
           </button>
         </div>
-      </form>
+      </div>
     );
   }
-  componentDidUpdate = (prevProps, prevState) => {
-    const { sort_by, order } = this.state;
-    const { sortTheArticles } = this.props;
-    sortedArticles(sort_by, order).then(articles => {
-      sortTheArticles(articles);
-    });
-  };
-
-  handleSortBy = e => {
-    this.setState({ sort_by: e.target.value });
-  };
-  handleOrder = e => {
-    this.setState({ order: e.target.value });
-  };
 
   handleSubmit = e => {
     e.preventDefault();
     console.log(this.props);
-    const { sort_by, order } = this.state;
-    const { sortTheArticles } = this.props;
-    sortedArticles(sort_by, order).then(articles => {
+    const { sortTheArticles, sortBy, order } = this.props.then(articles => {
       sortTheArticles(articles);
     });
   };
 }
-
 export default DropdownPage;
