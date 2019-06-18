@@ -3,10 +3,11 @@ import Header from "./components/Header";
 import Articles from "./components/Articles";
 import "./App.css";
 import { Router, Link } from "@reach/router";
-import Login from "./components/LoginBox";
 import SingleArticle from "./components/SingleArticle";
 import Axios from "axios";
 import Topics from "./components/Topics";
+import { getTopics } from "./api";
+import Auth from "./components/Authentication";
 
 class App extends Component {
   state = {
@@ -16,7 +17,8 @@ class App extends Component {
     topics: "",
     comments: [],
     loading: false,
-    body: ""
+    body: "",
+    logOut: null
   };
 
   render() {
@@ -31,12 +33,7 @@ class App extends Component {
           loggedInUser={this.state.loggedInUser}
           logOutUser={this.logOut}
         />
-
-        <Login
-          path="/"
-          logInUser={this.state.loggedInUser}
-          logOut={this.logOut}
-        />
+        <Auth user={loggedInUser} login={this.signInUser} />
         <Router>
           <Articles logInUser={this.signInUser} topics={topics} path="/" />
           <SingleArticle
@@ -63,15 +60,14 @@ class App extends Component {
     this.handleSave();
   }
   handleSave = () => {
-    localStorage.setItem("state", JSON.stringify.apply(this.state));
+    localStorage.setItem("state", JSON.stringify(this.state));
   };
   getTopics = () => {
-    this.getTopics().then(topics => {
+    getTopics().then(topics => {
       this.setState({ topics });
     });
   };
   signInUser = user => {
-    console.log("hi log in", user);
     this.setState({ loggedInUser: user });
     localStorage.setItem("loggedInUser", user);
   };

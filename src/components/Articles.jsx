@@ -9,6 +9,7 @@ import SingleArticle from "./SingleArticle";
 import DropdownPage from "./DropDownBar";
 import { submitArticle } from "../api";
 import Voting from "./Voting";
+import { Container, Form, Button } from "react-bootstrap";
 
 class Articles extends Component {
   state = {
@@ -33,7 +34,7 @@ class Articles extends Component {
           path="/"
           logInUser={this.signInUser}
         />
-
+        <Voting />
         <ArticleList articles={this.state.articles} path="/" />
       </div>
     );

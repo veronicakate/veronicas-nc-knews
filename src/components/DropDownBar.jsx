@@ -1,12 +1,14 @@
 import React, { Component } from "react";
-import { Router, Link } from "@reach/router";
 import { getUser, getTopics } from "../api";
 import "../App.css";
 
 class DropdownPage extends Component {
   state = {
     topics: [],
-    users: []
+    users: [],
+    sort_by: "created_at",
+    order: "DESC",
+    limit: 10
   };
 
   componentDidMount() {
@@ -21,18 +23,20 @@ class DropdownPage extends Component {
     return (
       <div>
         <div>
-          <label name="topicLabel"> Topic :</label>
-          <select onChange={this.props.handleTopic}>
-            {" "}
-            <option value="-1">All topics</option>
-            {this.state.topics.map((topic, index) => {
-              return (
-                <option value={topic.slug} key={index}>
-                  {topic.slug}
-                </option>
-              );
-            })}
-          </select>
+          <form onSubmit={this.handleSubmit}>
+            <label name="topicLabel"> Topic :</label>
+            <select onChange={this.props.handleTopic}>
+              {" "}
+              <option value="-1">All topics</option>
+              {this.state.topics.map((topic, index) => {
+                return (
+                  <option value={topic.slug} key={index}>
+                    {topic.slug}
+                  </option>
+                );
+              })}
+            </select>
+          </form>
         </div>
         <div>
           <label> Sort order </label>

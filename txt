@@ -111,12 +111,212 @@ passwordInput.setAttribute('class', 'invalid')
 
 
 
+single artilce----
+// {/* // {this.props.isLoggedIn === article.author && ( */}
+//   <button onClick={() =>{
+// //     handleDelete(article.article_id)
+// //   }}
+// // > delete article </button>
+// // )}
 
 
 
 
 
 
+
+
+
+
+
+// class NewArticleForm extends Component {
+//   state = {
+//     title: "",
+//     body: "",
+//     author: "",
+//     topic: "",
+//     showArticle: false,
+//     isThereAnError: false,
+//     error: ""
+//   };
+//   render() {
+//     const { body, title, showArticle, isThereAnError, error } = this.state;
+//     const { topics, user } = this.props;
+//     if (isThereAnError) return <ShowError error={error} />;
+//     return (
+//       <div>
+//         <button onClick={this.toggleArticle}>
+//           {" "}
+//           {showArticle ? "Cancel" : `Add an article?`}
+//         </button>
+//         {showArticle && (
+//           <form className="articleForm" onSubmit={this.handleSubmit}>
+//             <label> Topic</label>
+//             )}
+//             <select onChange={this.handleChange} name="topic">
+//               {topics &&
+//                 topics.map(topic => {
+//                   return (
+//                     <option key={topic.slug} value={topic.slug}>
+//                       {topic.slug}
+//                     </option>
+//                   );
+//                 })}
+
+//               <option key="other" value="add-topic">
+//                 add topic
+//               </option>
+//             </select>
+//             {this.state.topic === "add topic" ? (
+//               <NewTopic user={user} />
+//             ) : (
+//               <div>
+//                 <label> Title</label>
+//                 <input
+//                   type="text"
+//                   value={title}
+//                   onChange={this.handleChange}
+//                   name="title"
+//                   required
+//                 />
+//                 <label> your article</label>
+//                 <br />
+//                 <textarea rows="4" value={body} name="body" required />
+//               </div>
+//             )}
+//             <button type="submit"> submit article</button>
+//           </form>
+//         )}
+//       </div>
+//     );
+//   }
+//   toggleArticle = () => {
+//     const { showArticle } = this.state;
+//     this.setState({ showAddedArticle: !showArticle });
+//   };
+
+//   handleChange = event => {
+//     const { name, value } = event.target;
+//     this.setState({ [name]: value });
+//   };
+
+//   handleSubmit = event => {
+//     event.preventDefault();
+//     const { title, body, topic } = this.state;
+//     const { user } = this.props;
+//     submitArticle({ title, body, user, topic }).then(article => {
+//       navigate(`/articles/${article.article_id}`);
+//     });
+//     this.setState({ title: "", topic: "", body: "" });
+//     // state: { newArticle: true }
+//     //     .catch(err => console.error(err));
+//   };
+// }
+
+//         <label className="title">
+//           {" "}
+//           <h6> Title:</h6>
+//         </label>
+//         <input
+//           type="text"
+//           name="title"
+//           value={title}
+//           id="title-input"
+//           onChange={this.handleChange}
+//           required
+//         />
+//         <label className="Body">
+//           {" "}
+//           <h6> Body:</h6>
+//         </label>
+//         <input
+//           type="text"
+//           name="body"
+//           value={body}
+//           id="body-input"
+//           onChange={this.handleChange}
+//         />
+//         <label className="Author">
+//           {" "}
+//           <h6> Author:</h6>
+//         </label>
+//         <input
+//           onChange={this.handleChange}
+//           type="text"
+//           name="author"
+//           id="author-input"
+//         />
+//         <label>
+//           <h6>Select topic:</h6>
+//         </label>
+//         <select>
+//           <option
+//             type="text"
+//             name="topic"
+//             id="topic-input"
+//             onChange={this.handleChange}
+//             value="football"
+//           >
+//             Football
+//           </option>
+//           <option
+//             type="text"
+//             name="topic-input"
+//             id="topic-input"
+//             onChange={this.handleChange}
+//             value="cooking"
+//           >
+//             Cooking
+//           </option>
+//           <option
+//             type="text"
+//             name="topic-input"
+//             id="topic-input"
+//             onChange={this.handleChange}
+//             value="coding"
+//           >
+//             Coding
+//           </option>
+//         </select>
+//         <br />
+//         <button
+//           type="submit"
+//           className="articleButton"
+//           onClick={this.toggleArticle}
+//         >
+//           {showArticle ? "cancel" : ` Submit `}{" "}
+//         </button>
+//       </form>
+//     </div>
+//   );
+// }
+//how is this effecting the state, not adding to state.
+// handleChange = event => {
+//   const { key, value } = event.target;
+//   this.setState({ [key]: value });
+// };
+
+/* // handleBodyChange = event => {
+  //   this.setState({ body: event.target.value });
+  // };
+  // handleAuthorChange = event => {
+  //   this.setState({ author: event.target.value });
+  // };
+  // handleTopicChange = event => {
+  //   this.setState({ topic: event.target.value });
+  // }; */
+
+//     //clicked, stop more clicking, when you quickly click twice it provides same article twice
+//     //key of state and object of whatever i like.
+//     //generally when you recieve data you put in state
+//     //in this case we are going to navigate to another page
+//     //navigate state different to react state- refers to browser history state
+//     //article.article id comes from data you get back.
+//   })
+// }
+
+// //need to know body/title/topic to attach it to
+// //need user- based on whos logged in
 
 
 

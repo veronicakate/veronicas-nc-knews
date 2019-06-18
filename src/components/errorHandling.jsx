@@ -1,20 +1,26 @@
-// import React from "react";
+import React from "react";
+import { Link } from "@reach/router";
 
-// const ShowError = ({ location = {} }) => {
-//   //PROPS.LOCATION.STATE- on this path
-//   return (
-//     <div>
-//       {/* {location.state ? <h1> oops {location.state.status}</h1> : <h1 />} */}
-//       {location.state && <p> {location.state.from} not found</p>}
-//     </div>
-//   );
-// };
+const ShowError = ({ error }) => {
+  return (
+    <div>
+      <h2>oops!</h2>
+      {error ? (
+        <p>
+          Error: {error.response.status} {error.response.statusText}
+        </p>
+      ) : (
+        <h2> 404 </h2>
+      )}
+      <button>
+        <Link to="/"> Go Home</Link>
+      </button>
+    </div>
+  );
+};
 
 // export default ShowError;
 // catchErrors(error, info) {
 //   this.setState({ error: true });
 // }
-
-// if (this.state.error === true) {
-//   return <h1>Something went wrong</h1>;
-// }
+export default ShowError;

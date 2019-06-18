@@ -1,8 +1,6 @@
 import Axios from "axios";
-import React from "react";
 
 export const url = "https://bencnews.herokuapp.com/api/";
-//giving url a query, such as query username
 export const getArticles = query => {
   return Axios.get(url + "articles", { params: query }).then(
     ({ data: { articles } }) => {
@@ -15,19 +13,22 @@ export const getTopics = () => {
     return topics;
   });
 };
+export const newTopic = newTopic => {
+  return Axios.post(url + "topics", newTopic).then(({ data: { topic } }) => {
+    return topic;
+  });
+};
 export const getSingleArticle = article_id => {
-  //console.log(article_id);
   return Axios.get(url + "articles/" + article_id).then(
     ({ data: { article } }) => {
       return article;
     }
   );
 };
-//getting username on path
-export const getUser = username => {
-  //console.log(username);	  //console.log(username);
-  return Axios.get(`${url}users/${username}`).then(({ data: { user } }) => {
-    return user;
+
+export const getUser = () => {
+  return Axios.get(`${url}users`).then(({ data: { users } }) => {
+    return users;
   });
 };
 
@@ -39,6 +40,28 @@ export const getComments = article_id => {
     }
   );
 };
+export const patchComments = (comment_id, newVote) => {
+  return Axios.patch(url + `/comments/${comment_id}`, {
+    inc_votes: newVote
+  }).then(({ data: { comment } }) => {
+    return comment.votes;
+  });
+};
+
+export const deleteComment = comment_id => {
+  return Axios.delete(url + "comments/" + comment_id);
+};
+export const deleteArticle = article_id => {
+  return Axios.delete(url, +`articles/${article_id}`);
+};
+export const postComment = (article_id, newComment) => {
+  return Axios.post(
+    url + "articles/" + article_id + "/comments",
+    newComment
+  ).then(({ data: { comment } }) => {
+    return comment;
+  });
+};
 
 export const getArticleById = article_id => {
   return Axios.get(`${url}articles/${article_id}`).then(
@@ -47,14 +70,6 @@ export const getArticleById = article_id => {
     }
   );
 };
-// export const addCommentByArticleId = (article_id, { body, author }) => {
-//   return Axios.post(url + "articles/" + article_id + "/comments", {
-//     body: body,
-//     username: author
-//   }).then(({ data: { body } }) => {
-//     return body;
-//   });
-// };
 
 export const addCommentByArticleId = async (article_id, body, author) => {
   const { data } = await Axios.post(
@@ -64,16 +79,15 @@ export const addCommentByArticleId = async (article_id, body, author) => {
     }
   ).then(({ data: { body } }) => {
     return { body };
-    //return { ...data.comment };
   });
 };
 
 export const getArticlesFromUsername = username => {
-  return Axios.get(`${url}users/${username}`).then(({ data: { username } }) => {
-    return username;
+  return Axios.get(`${url}users/${username}`).then(({ data: { user } }) => {
+    return user;
   });
 };
-//body is data i want to send
+
 export const submitArticle = (title, author, body, topic) => {
   return Axios.post(`${url}topics/${topic}/articles`, {
     title,
@@ -90,21 +104,18 @@ export const sortedArticles = async (sort_by, order) => {
   return data.articles;
 };
 
-export const voteIt = (article_id, direction, comment_id) => {
-  const URL = comment_id
-    ? `${url}articles/${article_id}/comments/${comment_id}`
-    : `${url}articles/${article_id}`;
-  return Axios.patch(URL, {
-    inc_votes: direction
+export const voteIt = (article_id, newVote) => {
+  return Axios.patch(url + `articles/${article_id}`, {
+    inc_votes: newVote
   }).then(({ data: article }) => {
-    return article;
+    return article.votes;
   });
 };
 
-export const postComment = (comment, article_id) => {
-  return Axios.post(url + "articles/" + article_id + "/comments", comment).then(
-    ({ data: { comment } }) => {
-      return comment;
+export const postNewUser = (username, name, url) => {
+  return Axios.post(url + "users", { username, name, url }).then(
+    ({ data: { user } }) => {
+      return user;
     }
   );
 };

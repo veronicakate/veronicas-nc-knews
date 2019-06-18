@@ -63,7 +63,6 @@ class ArticleList extends Component {
               <h5 className="topic">Topic: {article.topic}</h5>
               <h5 className="created_at">Created: {article.created_at}</h5>
               <Link to={`/articles/${article.article_id}`} className="link">
-                {/* {loggedInUser && ( */}
                 <button className="commentButton">Comments</button>
               </Link>
             </div>
