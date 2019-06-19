@@ -6,15 +6,17 @@ import { Router, Link } from "@reach/router";
 import SingleArticle from "./components/SingleArticle";
 import Axios from "axios";
 import Topics from "./components/Topics";
-import { getTopics } from "./api";
+import { getTopics, getUser } from "./api";
 import Auth from "./components/Authentication";
+import Navigation from "./components/Navigation";
+import LogInBox from "./components/Login";
 
 class App extends Component {
   state = {
     articleList: [],
     loggedInUser: null,
     error: false,
-    topics: "",
+    topics: [],
     comments: [],
     loading: false,
     body: "",
@@ -33,18 +35,17 @@ class App extends Component {
           loggedInUser={this.state.loggedInUser}
           logOutUser={this.logOut}
         />
+        <LogInBox logInUser={this.signInUser} />
+        <Navigation user={loggedInUser} topics={topics} />
         <Auth user={loggedInUser} login={this.signInUser} />
         <Router>
-          <Articles logInUser={this.signInUser} topics={topics} path="/" />
+          <Articles logInUser={this.loggedInUser} topics={topics} path="/" />
+
           <SingleArticle
             path="/articles/:article_id"
-            loggedInUser={this.signInUser}
+            loggedInUser={loggedInUser}
           />
-          <Topics
-            path="/articles/topics"
-            topics={this.state.topics}
-            loggedInUser={this.state.loggedInUser}
-          />
+          <Topics path="/topics" topics={topics} />
         </Router>
       </div>
     );
@@ -52,9 +53,14 @@ class App extends Component {
 
   componentDidMount() {
     const url = "https://bencnews.herokuapp.com/api/articles";
+    const retrieved = localStorage.getItem("state");
+    if (retrieved) {
+      this.setState(JSON.parse(retrieved));
+    }
     Axios.get(url).then(({ data: { articles } }) => {
       this.setState({ articleList: articles });
     });
+    this.getTopics();
   }
   componentDidUpdate() {
     this.handleSave();
@@ -67,9 +73,10 @@ class App extends Component {
       this.setState({ topics });
     });
   };
-  signInUser = user => {
-    this.setState({ loggedInUser: user });
-    localStorage.setItem("loggedInUser", user);
+  signInUser = loggedInUser => {
+    return getUser(loggedInUser).then(loggedInUser => {
+      this.setState({ loggedInUser });
+    });
   };
 
   logOut = e => {

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getUser, getTopics } from "../api";
+import { getUser, getTopics, sortedArticles } from "../api";
 import "../App.css";
 
 class DropdownPage extends Component {
@@ -11,77 +11,77 @@ class DropdownPage extends Component {
     limit: 10
   };
 
-  componentDidMount() {
-    getTopics().then(topics => {
-      this.setState({ topics: topics });
-    });
-    getUser().then(users => {
-      this.setState({ users: users });
-    });
-  }
   render() {
     return (
       <div>
-        <div>
-          <form onSubmit={this.handleSubmit}>
-            <label name="topicLabel"> Topic :</label>
-            <select onChange={this.props.handleTopic}>
+        <form onSubmit={this.handleSubmit}>
+          <div>
+            <label name="topicLabel"> Sort By :</label>
+            <select onChange={this.handleSortBy} defaultValue="created_at">
               {" "}
-              <option value="-1">All topics</option>
-              {this.state.topics.map((topic, index) => {
-                return (
-                  <option value={topic.slug} key={index}>
-                    {topic.slug}
-                  </option>
-                );
-              })}
+              <option value="created_at" defaultValue>
+                Date created
+              </option>
+              <option value="votes" defaultValue>
+                Votes
+              </option>
+              <option value="title" defaultValue>
+                Title
+              </option>
+              <option value="author" defaultValue>
+                Author
+              </option>
             </select>
-          </form>
-        </div>
-        <div>
-          <label> Sort order </label>
-          <select
-            id="order"
-            className="chosenSort"
-            onChange={this.props.handleOrder}
-            defaultValue="created_at"
-          >
-            <option value="asc" defaultValue>
-              ascending
-            </option>
-            <option value="desc">descending</option>
-          </select>
-          {/* <option value="votes"> Votes</option>
-          <option value="comment_count"> Comments</option>
-          <option value="author"> Author</option> */}
-        </div>
-
-        <div>
-          <label className="orderText"> Sort by: </label>
-          <select
-            id="order"
-            className="ordersort"
-            onChange={this.props.handleSortBy}
-          >
-            <option value="author">author</option>
-            <option value="topic">topic</option>
-            <option value="title">title</option>
-            <option value="votes">votes</option>
-          </select>
-          <button type="submit" className="SubmitButton">
+          </div>
+          <div>
+            <label> Order:</label>
+            <select id="order" onChange={this.handleOrder} defaultValue="DESC">
+              <option value="ASC"> Ascending</option>
+              <option value="DESC"> Descending</option>
+            </select>
+          </div>
+          <div>
+            <label>Results:</label>
+            <select id="limit" onChange={this.handleLimit}>
+              <option value="5"> 5</option>
+              <option value="10"> 10</option>
+            </select>
+          </div>
+          <button type="submit" className="submit">
             Sort
           </button>
-        </div>
+        </form>
       </div>
     );
   }
 
-  handleSubmit = e => {
-    e.preventDefault();
-    console.log(this.props);
-    const { sortTheArticles, sortBy, order } = this.props.then(articles => {
+  componentDidUpdate = (prevProps, prevState) => {
+    const { sort_by, order, limit } = this.state;
+    const { sortTheArticles } = this.props;
+    sortedArticles(sort_by, order, limit).then(articles => {
       sortTheArticles(articles);
     });
+  };
+
+  handleOrder = e => {
+    this.setState({ order: e.target.value });
+  };
+  handleLimit = e => {
+    this.setState({ limit: e.target.value });
+  };
+  handleSortBy = e => {
+    this.setState({ sort_by: e.target.value });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    const { sort_by, limit, order } = this.state;
+    const { sortTheArticles } = this.props;
+    sortedArticles(sort_by, order, limit)
+      .then(articles => {
+        sortTheArticles(articles);
+      })
+      .then(this.setState);
   };
 }
 export default DropdownPage;

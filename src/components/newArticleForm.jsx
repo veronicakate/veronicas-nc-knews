@@ -1,65 +1,100 @@
+import { submitArticle } from "../api";
+import { navigate } from "@reach/router";
 import React, { Component } from "react";
-import { Container, Form, Button } from "react-bootstrap";
-import { Router, Link } from "@reach/router";
+import Error from "./ErrorHandling";
+import NewTopic from "./NewTopics";
 
-const NewArticleForm = props => {
-  const articleButton = !!props.title && !!props.body && !!props.topic;
-  const { state: locationState } = this.props.location;
-  return (
-    <Container>
-      {this.props.location.state && this.props.location.state.newArticle && (
-        <h2>hello, you posted an article</h2>
-      )}
-      <h2 className="titleSingleArticle">{this.props.article.title}</h2>
-      <p className="body"> {this.props.article.body} </p>
-      <p> Votes:{this.props.article.votes}</p>
-      <p className="topicSingle">
-        {" "}
-        Topic: <Link to={"/articles/topics"}>
+class NewArticleForm extends Component {
+  state = {
+    title: "",
+    body: "",
+    author: "",
+    topic: "",
+    showArticle: false,
+    isThereAnError: false,
+    error: ""
+  };
+  render() {
+    const { body, title, showArticle, isThereAnError, error } = this.state;
+    const { topics, user } = this.props;
+    if (isThereAnError) return <Error error={error} />;
+    return (
+      <div>
+        <button onClick={this.toggleArticle}>
           {" "}
-          {this.props.article.topic}
-        </Link>{" "}
-      </p>
-      <p className="author">Author: {this.props.article.author}</p>
-      <p className="comment_count">
-        Comment count: {this.props.article.comment_count}
-      </p>
-      <h4> Post new article</h4>
-      <Form onSubmit={props.addNewArticle}>
-        <Form.Group>
-          <Form.Label> Topic</Form.Label>
-          <Form.Text>
-            Select from list below or add{" "}
-            <Link to="/topic"> new topic here</Link>
-          </Form.Text>
-          <Form.Control
-            onChange={event => {
-              this.props.updateUserInput("topic", event);
-            }}
-            as="select"
-          >
-            <option> select topic</option>
-            {props.topic.map(topic => {
-              return (
-                <option key={`topicSelect${topic.slug}`}>{topic.slug}</option>
-              );
-            })}
-          </Form.Control>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label> Title </Form.Label>
-          <Form.Control
-            onChange={event => {
-              this.props.updateUserInput("title", event);
-            }}
-            as="textarea"
-            rows="3"
-          />
-        </Form.Group>
-        <Button type="submit" disable={!articleButton} />
-      </Form>
-    </Container>
-  );
-};
+          {showArticle ? "cancel" : ` Submit `}{" "}
+        </button>
+        {/* {showArticle && ( */}
+        <form className="articleForm" onSubmit={this.handleSubmit}>
+          <label>Topic:</label>
+          <select id="topics" onChange={this.handleChange} name="topic">
+            {topics &&
+              topics.map(topic => {
+                return (
+                  <option key={topic.slug} value={topic.slug}>
+                    {topic.slug}
+                  </option>
+                );
+              })}
+            <option key="other" value="add-topic">
+              {" "}
+              Add topic:
+            </option>
+          </select>
+          {this.state.topic === "add-topic" ? (
+            <NewTopic user={user} />
+          ) : (
+            <div>
+              <label htmlFor="title" className="title">
+                {" "}
+                Title
+              </label>
+              <input
+                type="text"
+                value={title}
+                onChange={this.handleChange}
+                name="title"
+                required
+              />
+              <label> Your article</label>
+              <textarea
+                rows="4"
+                type="text"
+                value={body}
+                onChange={this.handleChange}
+                name="body"
+                required
+              />
+            </div>
+          )}
+          <button type="submit"> Submit Article </button>
+        </form>
+        )}
+      </div>
+    );
+  }
+
+  handleChange = event => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
+
+  toggleArticle = () => {
+    const { showArticle } = this.state;
+    this.setState({ showArticle: !showArticle });
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    const { title, body, topic } = this.state;
+    const user = this.props;
+    submitArticle({ title, body, user, topic }).then(article => {
+      navigate(`/articles/${article.article_id}`);
+    });
+    this.setState({ title: "", topic: "", body: "" });
+    // state: { newArticle: true }
+    //     .catch(err => console.error(err));
+  };
+}
 
 export default NewArticleForm;

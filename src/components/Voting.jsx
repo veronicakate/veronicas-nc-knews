@@ -1,53 +1,44 @@
 import React, { Component } from "react";
-import { Form, Container, Card } from "react-bootstrap";
 import { voteIt } from "../api";
 class Voting extends Component {
   state = {
     voteChange: 0
   };
+  render() {
+    const { votes } = this.props;
+    const { voteChange } = this.state;
+    return (
+      <div className="votes">
+        <button
+          className="upVote"
+          onClick={() => this.addVote(1)}
+          disabled={voteChange === 1}
+        >
+          {" "}
+          Yay, thumbs up.
+        </button>
+        <br />
+
+        <button
+          className="downVote"
+          onClick={() => this.addVote(-1)}
+          disabled={voteChange === -1}
+        >
+          {" "}
+          No, dislike.
+        </button>
+        <p className="actualVotez"> Votes: {votes + voteChange}</p>
+      </div>
+    );
+  }
   addVote = direction => {
+    const { article_id, comment_id } = this.props;
+
+    voteIt({ comment_id, direction, article_id });
     this.setState(prevState => {
       return { voteChange: prevState.voteChange + direction };
     });
-    voteIt(this.props.comment_id, this.state.voteChange + direction).catch(
-      err => {
-        this.setState(prevState => {
-          return { voteChange: prevState.voteChange - direction };
-        });
-      }
-    );
   };
-  render() {
-    return (
-      <Card>
-        <Container>
-          <h5>total likes: {this.props.votes + this.state.voteChange}</h5>
-          {this.props.loggedInUser && (
-            <div>
-              <button
-                disabled={this.state.voteChange === -1}
-                onClick={() => {
-                  this.addVote(-1);
-                }}
-              >
-                {" "}
-                dislike{" "}
-              </button>
-              <button
-                disabled={this.state.voteChange === 1}
-                onClick={() => {
-                  this.addVote(1);
-                }}
-              >
-                {" "}
-                like
-              </button>
-            </div>
-          )}
-        </Container>
-      </Card>
-    );
-  }
 }
 
 export default Voting;

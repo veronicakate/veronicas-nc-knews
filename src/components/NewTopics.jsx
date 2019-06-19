@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Router, Link } from "@reach/router";
 import "../App.css";
 import { newTopic } from "../api";
-import NewArticleForm from "./NewArticleForm";
+
+import NewTopicArticle from "./NewTopicArticle";
 
 class NewTopic extends Component {
   state = {
@@ -37,12 +38,13 @@ class NewTopic extends Component {
             submit new topic{" "}
           </button>
         </form>
-        {toggleArticle && <NewArticleForm topic={newSlug} user={user} />}
+        {toggleArticle && <NewTopicArticle topic={newSlug} user={user} />}
       </div>
     );
   }
-  updateUserInput = (topicInfo, event) => {
-    this.ListeningStateChangedEvent({ [topicInfo]: event.target.value });
+  updateUserInput = event => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
   };
 
   toggleNewTopic = () => {

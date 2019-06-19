@@ -1,27 +1,51 @@
 import React, { Component } from "react";
 import { getTopics } from "../api";
 import TopicList from "./SelectedTopicsList";
+import { Router, Link } from "@reach/router";
 
-class Topics extends Component {
-  state = {
-    topics: ""
-  };
+const Topics = ({ topics }) => {
+  return (
+    <div>
+      {topics.map(topic => (
+        <div key={topic.slug}>
+          {" "}
+          <Link to={`/topics/${topic.slug}`} className="link">
+            <h1>{topic.slug} </h1>
+          </Link>
+          <div align="right">
+            <h5 className="topic">Topic: {topic.slug}</h5>
+          </div>
+          <Link to={` / topics / ${topic.slug}`} className="link">
+            {/* {loggedInUser && ( */}
+          </Link>
+        </div>
+      ))}
+    </div>
+  );
+};
 
-  componentDidMount() {
-    getTopics(this.props.topics)
-      .then(topics => {
-        this.setState({ topics });
-      })
-      .catch(({ response: { data, status } }) => {
-        console.log(data.message, status);
-      });
-  }
-  render() {
-    return (
-      <div>
-        <TopicList topics={this.state.topics} path="/articles/topics" />{" "}
-      </div>
-    );
-  }
-}
 export default Topics;
+
+// class Topics extends Component {
+//   state = {
+//     topics: ""
+//   };
+
+//   componentDidMount() {
+//     getTopics(this.props.topics)
+//       .then(topics => {
+//         this.setState({ topics });
+//       })
+//       .catch(({ response: { data, status } }) => {
+//         console.log(data.message, status);
+//       });
+//   }
+//   render() {
+//     return (
+//       <div>
+//         <TopicList topics={this.state.topics} path="/articles/topics" />{" "}
+//       </div>
+//     );
+//   }
+// }
+// export default Topics;

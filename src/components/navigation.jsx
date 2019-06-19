@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import { Router, Link } from "@reach/router";
 
 import "../App.css";
-export default function Navigation({ topics }) {
-  console.log(topics);
+const Navigation = ({ topics }) => {
+  const newTopic = topics.slice(0, 3);
   return (
     <div>
-      {topics.map(topic => (
+      {newTopic.map(topic => (
         <span key={topic.slug}>
           <Link to={`/topics/${topic.slug}`}>{topic.slug}</Link>
         </span>
@@ -14,4 +14,5 @@ export default function Navigation({ topics }) {
       <Link to={`/topics`}>view all topics</Link>
     </div>
   );
-}
+};
+export default Navigation;

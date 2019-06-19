@@ -11,7 +11,7 @@ class Auth extends Component {
   render() {
     const { userNameInput, anError } = this.state;
     const { user, children } = this.props;
-    if (user && user.username) return children;
+
     return (
       <div align="centre" className="login">
         <br />
@@ -37,15 +37,14 @@ class Auth extends Component {
   handleInput = e => {
     this.setState({ userNameInput: e.target.value, error: null });
   };
-  //handles input of loginbox
 
   handleSubmit = e => {
     e.preventDefault();
-
+    const { login } = this.props;
     const { userNameInput, error } = this.state;
-    getUser(userNameInput)
-      .then(validUser => {
-        this.props.logInUser(validUser.username);
+    login(userNameInput)
+      .then(() => {
+        this.setState({ userNameInput: "" });
       })
       .catch(() => {
         this.setState({ error, anError: true, userNameInput: "" });

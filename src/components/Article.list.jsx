@@ -7,6 +7,7 @@ import "../App.css";
 class ArticleList extends Component {
   state = {
     articles: [],
+    addArticle: false,
     sortOrder: "asc",
     topic: null,
     sortBy: "created_at",
@@ -45,12 +46,6 @@ class ArticleList extends Component {
   render() {
     return (
       <div>
-        <DropDownPage
-          handleTopic={this.handleTopic}
-          handleAuthor={this.handleAuthor}
-          handleOrder={this.handleOrder}
-          handleSortBy={this.handleSortBy}
-        />
         {this.state.articles.map(article => (
           <div key={article.article_id}>
             {" "}

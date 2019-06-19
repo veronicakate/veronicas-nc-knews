@@ -1,19 +1,14 @@
 import React, { Component } from "react";
-import Axios from "axios";
 import { getArticles } from "../api";
-import { Router, Link } from "@reach/router";
-import { navigate } from "@reach/router";
 import ArticleList from "./Article.list";
 import NewArticleForm from "./NewArticleForm";
-import SingleArticle from "./SingleArticle";
-import DropdownPage from "./DropDownBar";
 import { submitArticle } from "../api";
 import Voting from "./Voting";
-import { Container, Form, Button } from "react-bootstrap";
+import DropdownPage from "./DropDownBar";
 
 class Articles extends Component {
   state = {
-    articles: [],
+    article: {},
     submitArticle: false,
     isLoading: true,
     hasErr: false,
@@ -22,33 +17,36 @@ class Articles extends Component {
   };
 
   render() {
-    const { articles, isLoading, hasErr, error } = this.state;
-    const { topic, user } = this.props;
+    const { article, isLoading, hasErr, error } = this.state;
+    const { topics, user } = this.props;
 
     return (
       <div>
         <NewArticleForm
-          topics={topic}
+          topics={topics}
           user={user}
           toggleAddArticle={this.toggleAddArticle}
-          path="/"
-          logInUser={this.signInUser}
-        />
-        <Voting />
-        <ArticleList articles={this.state.articles} path="/" />
+        />{" "}
+        {/* {articles.map(article => (
+          <section key={article.article_id}>
+            <Link to={`/articles/${article.article_id}`}>
+              <ArticleList article={article} />
+            </Link>
+          </section> */}
+        ))}
+        <Voting votes={article.votes} article_id={article.article_id} />
+        <DropdownPage sortArticles={this.sortArticles} />
+        <ArticleList articles={article} />
       </div>
     );
   }
 
-  // componentDidMount() {
-  //   getArticles()
-  //     .then(articles => {
-  //       this.setState({ articles });
-  //     })
-  //     .catch(({ response: { data, status } }) => {
-  //       console.log(data.message, status);
-  //     });
-  // }
+  componentDidMount() {
+    this.fetchArticle();
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.topic !== this.props.topic) this.fetchArticle();
+  }
 
   sortArticles = articles => {
     this.setState({ articles });
