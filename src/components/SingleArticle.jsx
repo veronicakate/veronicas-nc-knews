@@ -4,6 +4,7 @@ import "../App.css";
 import Comments from "./Comments";
 import CommentForm from "./CommentForm";
 import Voting from "./Voting";
+import ArticleList from "./Article.list";
 
 class SingleArticle extends Component {
   state = {
@@ -22,6 +23,12 @@ class SingleArticle extends Component {
     const { state: locationState } = this.props.location;
     return (
       <div>
+        <h2 className="titleSingleArticle">{article.title}</h2>
+        <p className="body"> {article.body} </p>
+        <p className="topicSingle">Topic: {article.topic}</p>
+        <p className="author">Author: {article.author}</p>
+        <p className="votes">Votes {article.votes}</p>
+        <p className="comment_count">Comment count: {article.comment_count}</p>
         <Voting votes={article.votes} article_id={article.article_id} />
         <h4 className="commentTitle">Comments..</h4>
         <Comments

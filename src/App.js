@@ -7,7 +7,6 @@ import SingleArticle from "./components/SingleArticle";
 import Axios from "axios";
 import Topics from "./components/Topics";
 import { getTopics, getUser } from "./api";
-import Auth from "./components/Authentication";
 import Navigation from "./components/Navigation";
 import LogInBox from "./components/Login";
 
@@ -37,7 +36,7 @@ class App extends Component {
         />
         <LogInBox logInUser={this.signInUser} />
         <Navigation user={loggedInUser} topics={topics} />
-        <Auth user={loggedInUser} login={this.signInUser} />
+
         <Router>
           <Articles logInUser={this.loggedInUser} topics={topics} path="/" />
 

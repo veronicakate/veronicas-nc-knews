@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { getArticles } from "../api";
 import ArticleList from "./Article.list";
-import NewArticleForm from "./NewArticleForm";
+
 import { submitArticle } from "../api";
 import Voting from "./Voting";
 import DropdownPage from "./DropDownBar";
+import NewArticleForm from "./newArticleForm";
 
 class Articles extends Component {
   state = {
