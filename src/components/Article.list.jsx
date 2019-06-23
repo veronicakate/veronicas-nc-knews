@@ -16,13 +16,11 @@ class ArticleList extends Component {
   };
 
   componentDidMount() {
-    getArticles()
-      .then(articles => {
-        this.setState({ articles });
-      })
-      .catch(({ response: { data, status } }) => {
-        console.log(data.message, status);
-      });
+    getArticles().then(articles => {
+      this.setState({ articles });
+    });
+    // .catch(({ response: { data, status } }) => {
+    //   console.log(data.message, status);
   }
 
   componenentDidUpdate(prevProps, prevState) {
@@ -66,19 +64,6 @@ class ArticleList extends Component {
       </div>
     );
   }
-
-  handleTopic = e => {
-    this.setState({ sort_by: e.target.value });
-  };
-  handleSortBy = e => {
-    this.setState({ sortBy: e.target.value });
-  };
-  handleOrder = e => {
-    this.setState({ sortOrder: e.target.value });
-  };
-  handleAuthor = e => {
-    this.setState({ author: e.target.value });
-  };
 }
 
 export default ArticleList;

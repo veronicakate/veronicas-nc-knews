@@ -49,16 +49,18 @@ export const patchComments = (comment_id, newVote) => {
 };
 
 export const deleteComment = comment_id => {
-  return Axios.delete(url + "comments/" + comment_id);
+  return Axios.delete(url + "comments/" + comment_id).then(({ status }) => {
+    return status;
+  });
 };
 export const deleteArticle = article_id => {
   return Axios.delete(url, +`articles/${article_id}`);
 };
-export const postComment = (article_id, newComment) => {
-  return Axios.post(
-    url + "articles/" + article_id + "/comments",
-    newComment
-  ).then(({ data: { comment } }) => {
+export const postComment = (article_id, username, body, newComment) => {
+  return Axios.post(url + "articles/" + article_id + "/comments", {
+    username,
+    body
+  }).then(({ data: { comment } }) => {
     return comment;
   });
 };
@@ -71,15 +73,12 @@ export const getArticleById = article_id => {
   );
 };
 
-export const addCommentByArticleId = async (article_id, body, author) => {
-  const { data } = await Axios.post(
-    url + "articles/" + article_id + "/comments",
-    {
-      body: body
+export const getCommentByArticleId = async article_id => {
+  return Axios.get(url + "articles/" + article_id + "/comments").then(
+    ({ data: { comments } }) => {
+      return { comments };
     }
-  ).then(({ data: { body } }) => {
-    return { body };
-  });
+  );
 };
 
 export const getArticlesFromUsername = username => {

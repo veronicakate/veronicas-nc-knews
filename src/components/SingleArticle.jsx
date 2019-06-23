@@ -3,14 +3,14 @@ import React, { Component } from "react";
 import "../App.css";
 import Comments from "./Comments";
 import CommentForm from "./CommentForm";
-import Voting from "./Voting";
-import ArticleList from "./Article.list";
+import { voteIt } from "../api";
 
 class SingleArticle extends Component {
   state = {
     article: {},
     comments: [],
-    topic: {}
+    topic: {},
+    voteChange: 0
   };
 
   componentDidMount() {
@@ -19,6 +19,7 @@ class SingleArticle extends Component {
     });
   }
   render() {
+    const { body, votes } = this.props;
     const { article, comments } = this.state;
     const { state: locationState } = this.props.location;
     return (
@@ -29,17 +30,19 @@ class SingleArticle extends Component {
         <p className="author">Author: {article.author}</p>
         <p className="votes">Votes {article.votes}</p>
         <p className="comment_count">Comment count: {article.comment_count}</p>
-        <Voting votes={article.votes} article_id={article.article_id} />
         <h4 className="commentTitle">Comments..</h4>
+        <div>
+          <button className="votingUp" onClick={() => this.handleVote(1)}>
+            {" "}
+            up vote
+          </button>
+          <h3>{votes + this.state.voteChange}</h3>
+          <button onClick={() => this.handleVote(-1)}> down vote</button>
+        </div>
+        <p>{body}</p>
         <Comments
           article_id={this.props.article_id}
           comments={article.article_id}
-        />
-
-        <Voting
-          votes={comments.votes}
-          comment_id={comments.comment_id}
-          article_id={comments.article_id}
         />
         <CommentForm
           article_id={this.props.article_id}
@@ -50,13 +53,27 @@ class SingleArticle extends Component {
       </div>
     );
   }
-
-  handleNewComment = newComment => {
-    const currentComment = this.state.comments;
-    const restOfComments = [newComment, ...currentComment];
-    this.setState(prevState => ({
-      comments: (prevState.comments = restOfComments)
-    }));
+  handleVote = voteChangeInput => {
+    const { comment_id } = this.props;
+    const { voteChange } = this.state;
+    if (voteChange === 0) {
+      voteIt(voteChangeInput, "comments", comment_id);
+      this.setState({ voteChange: voteChangeInput });
+    } else if (voteChange === voteChangeInput) {
+      voteIt(-voteChangeInput, "comments", comment_id);
+      this.setState({ voteChange: 0 });
+    } else if (voteChange !== voteChangeInput) {
+      voteIt(-2 * voteChangeInput, "comments", comment_id);
+      this.setState({ voteChange: voteChangeInput });
+    }
   };
+
+  // handleNewComment = newComment => {
+  //   const currentComment = this.state.comments;
+  //   const restOfComments = [newComment, ...currentComment];
+  //   this.setState(prevState => ({
+  //     comments: (prevState.comments = restOfComments)
+  //   }));
+  // };
 }
 export default SingleArticle;
