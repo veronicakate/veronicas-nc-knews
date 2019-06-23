@@ -1,9 +1,8 @@
-import { getSingleArticle } from "../api";
 import React, { Component } from "react";
 import "../App.css";
 import Comments from "./Comments";
 import CommentForm from "./CommentForm";
-import { voteIt } from "../api";
+import { getSingleArticle, voteIt, getComments } from "../api";
 
 class SingleArticle extends Component {
   state = {
@@ -15,7 +14,11 @@ class SingleArticle extends Component {
 
   componentDidMount() {
     getSingleArticle(this.props.article_id).then(article => {
+      console.log(article);
       this.setState({ article });
+    });
+    getComments(this.props.article_id).then(comments => {
+      this.setState({ comments: comments });
     });
   }
   render() {
@@ -30,19 +33,34 @@ class SingleArticle extends Component {
         <p className="author">Author: {article.author}</p>
         <p className="votes">Votes {article.votes}</p>
         <p className="comment_count">Comment count: {article.comment_count}</p>
+        <button
+          size="sml"
+          className="voting"
+          onCLick={() => this.handleVote(1)}
+        >
+          {" "}
+          Like
+        </button>
+        <button className="voting" onCLick={() => this.handleVote(-1)}>
+          {" "}
+          Dislike
+        </button>
+        <h3>{article.votes + this.props.voteChange}</h3>
         <h4 className="commentTitle">Comments..</h4>
         <div>
-          <button className="votingUp" onClick={() => this.handleVote(1)}>
+          {/* <button className="votingUp" onClick={() => this.handleVote(1)}>
             {" "}
             up vote
           </button>
           <h3>{votes + this.state.voteChange}</h3>
-          <button onClick={() => this.handleVote(-1)}> down vote</button>
+          <button onClick={() => this.handleVote(-1)}> down vote</button> */}
         </div>
+        <div />
         <p>{body}</p>
         <Comments
           article_id={this.props.article_id}
-          comments={article.article_id}
+          comments={this.state.comments}
+        />
         />
         <CommentForm
           article_id={this.props.article_id}

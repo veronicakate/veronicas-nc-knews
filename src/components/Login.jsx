@@ -7,7 +7,7 @@ class LoginBox extends Component {
   };
   render() {
     return (
-      <div className="login">
+      <div className="headerLogin">
         <form onSubmit={this.handleSubmit}>
           <input required={true} onChange={this.handleInput} type="text" />
           <button className="LogInButton"> login!</button>

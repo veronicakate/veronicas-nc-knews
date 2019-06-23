@@ -5,19 +5,17 @@ import { Router, Link } from "@reach/router";
 
 const Topics = ({ topics }) => {
   return (
-    <div>
+    <div className="header">
       {topics.map(topic => (
         <div key={topic.slug}>
           {" "}
+          <Link to={`/topics`}>view all topics</Link>
           <Link to={`/topics/${topic.slug}`} className="link">
             <h1>{topic.slug} </h1>
           </Link>
           <div align="right">
             <h5 className="topic">Topic: {topic.slug}</h5>
           </div>
-          <Link to={` / topics / ${topic.slug}`} className="link">
-            {/* {loggedInUser && ( */}
-          </Link>
         </div>
       ))}
     </div>

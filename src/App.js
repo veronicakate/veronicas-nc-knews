@@ -35,7 +35,7 @@ class App extends Component {
           logOutUser={this.logOut}
         />
         <LogInBox logInUser={this.signInUser} />
-        <Navigation user={loggedInUser} topics={topics} />
+        {/* <Navigation user={loggedInUser} topics={topics} /> */}
 
         <Router>
           <Articles logInUser={this.loggedInUser} topics={topics} path="/" />

@@ -13,28 +13,36 @@ class Comments extends Component {
   render() {
     const { comments, loggedInUser } = this.props;
     const { voteChange } = this.state;
-    return (
-      <li key={comments.comment_id} className="comments">
-        <div className="votes">
-          <button className="votingUp" onCLick={() => this.handleVote(1)}>
-            {" "}
-            Vote Up on Comments
-          </button>
-          <h3>{comments.votes + voteChange}</h3>
-          <button className="votingDown" onCLick={() => this.handleVote(-1)}>
-            {" "}
-            Vote Down on Comments
-          </button>
-        </div>
-        <div>
-          <h4>{comments.author}</h4>
-          {loggedInUser && loggedInUser.username === comments.author && (
-            <button onClick={() => this.props.deleteComment}>Delete</button>
-          )}
-          <p> {comments.body}</p>
-        </div>
-      </li>
-    );
+    return comments.map(comment => {
+      return (
+        <li key={comment.comment_id} className="commentBoxes">
+          <div className="votes">
+            <p> {comment.body}</p>
+            <p> Author of comment: {comment.author} </p>
+
+            <button
+              size="sml"
+              className="voting"
+              onCLick={() => this.handleVote(1)}
+            >
+              {" "}
+              Like
+            </button>
+
+            <button className="voting" onCLick={() => this.handleVote(-1)}>
+              {" "}
+              Dislike
+            </button>
+            <h3>{comment.votes + voteChange}</h3>
+          </div>
+          <div>
+            {loggedInUser && loggedInUser.username === comment.author && (
+              <button onClick={() => this.props.deleteComment}>Delete</button>
+            )}
+          </div>
+        </li>
+      );
+    });
   }
   handleVote = voteChangeInput => {
     const { comment_id } = this.state.comment;
