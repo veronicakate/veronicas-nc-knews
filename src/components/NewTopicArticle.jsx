@@ -1,55 +1,48 @@
 import React, { Component } from "react";
 import { Router, Link, navigate } from "@reach/router";
 import "../App.css";
-import { submitArticle } from "../api";
+import { submitArticle, newTopic } from "../api";
 
 class NewTopicArticle extends Component {
   state = {
     title: "",
-    body: ""
+    body: "",
+    topics: [],
+    err: null
   };
+
+  componentDidMount() {
+    newTopic().then(topics => {
+      this.setState({ topics });}).catch(({}))
+    };
+  
   render() {
     const { body, title } = this.state;
-    const { topic } = this.props;
-    return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <label> Title</label>
-          <input
-            type="text"
-            value={title}
-            onChange={this.handleChange}
-            name="title"
-          />
-          <label>Your article</label>
-          <textarea
-            rows="4"
-            cols="50"
-            id="article"
-            type="text"
-            value={body}
-            onChange={this.handleChange}
-            name="body"
-          />
-          <button type="submit"> submit first article to {topic}</button>
-        </form>
-      </div>
-    );
+    const { author, topic } = this.props;
+    // if (this.state.err) return <Error err={this.state.err} /> - add error page
+    let titleOfTopic = 'New Knews'
+    return ( <h3>{title}</h3>
+    <ul> 
+      <Link to={'/'}>
+      <li key="news"> News</li>
+    </Link>
+    {topics.map(topic => {
+      return (
+        <Link to={`/topics/${topic.slug}`} key={topic.slug}>
+          <li>{topic.slug} </li>
+        </Link>
+        
+      )})}
+   </ul>
+    )}
   }
-  handleChange = e => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  };
-
-  handleSubmit = e => {
-    e.preventDefault();
-    const { title, body } = this.state;
-    const { user, topic } = this.props;
-    submitArticle(title, topic, body, user.username).then(article => {
-      navigate(`/article/${article.article_id}`);
-    });
-    this.setState({ title: "", body: "" });
-  };
+    
 }
 
-export default NewTopicArticle;
+
+  export default NewTopicArticle;
+
+
+
+
+
