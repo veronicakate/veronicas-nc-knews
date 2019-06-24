@@ -56,7 +56,7 @@ class SingleArticle extends Component {
           <button onClick={() => this.handleVote(-1)}> down vote</button> */}
         </div>
         <div />
-        <p>{body}</p>
+        <p className="commentBody">{body}</p>
         <Comments
           article_id={this.props.article_id}
           comments={this.state.comments}

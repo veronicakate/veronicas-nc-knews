@@ -17,8 +17,11 @@ class Comments extends Component {
       return (
         <li key={comment.comment_id} className="commentBoxes">
           <div className="votes">
-            <p> {comment.body}</p>
-            <p> Author of comment: {comment.author} </p>
+            <p className="comments"> {comment.body}</p>
+            <p className="commentsAuthor">
+              {" "}
+              Author of comment: {comment.author}{" "}
+            </p>
 
             <button
               size="sml"
@@ -33,7 +36,7 @@ class Comments extends Component {
               {" "}
               Dislike
             </button>
-            <h3>{comment.votes + voteChange}</h3>
+            <h3 className="votes">{comment.votes + voteChange}</h3>
           </div>
           <div>
             {loggedInUser && loggedInUser.username === comment.author && (

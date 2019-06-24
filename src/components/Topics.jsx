@@ -9,7 +9,6 @@ const Topics = ({ topics }) => {
       {topics.map(topic => (
         <div key={topic.slug}>
           {" "}
-          <Link to={`/topics`}>view all topics</Link>
           <Link to={`/topics/${topic.slug}`} className="link">
             <h1>{topic.slug} </h1>
           </Link>

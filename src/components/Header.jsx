@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, logo } from "react";
 import { Router, Link } from "@reach/router";
+
 import "../App.css";
 export default class Header extends Component {
   render() {
@@ -12,12 +13,20 @@ export default class Header extends Component {
         <br />
         <br />
         <br />
+
         <h1 className="header">
           Veronica's
           <br /> NC
           <br />
           Knews
         </h1>
+        <div>
+          <div className="myImage"> .</div>
+        </div>
+        <br />
+
+        <div />
+
         <br />
         <br />
         <br />

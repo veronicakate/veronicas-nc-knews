@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { getArticles } from "../api";
 import ArticleList from "./Article.list";
+import { Router, Link } from "@reach/router";
 
 import { submitArticle } from "../api";
 import Voting from "./Voting";
@@ -26,14 +27,35 @@ class Articles extends Component {
     // if(err) return <Error err={err} /> - add error page
     return (
       <div className="articlePage">
-        <div>
-          <button onClick={() => this.changeSort("created_at")}> Newest</button>
-          <button onClick={() => this.changeSort("votes")}>Votes</button>
-          <button onClick={() => this.changeSort("comment_count")}>
-            Comments
-          </button>
-        </div>
+        <div> </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <Link className="topicButton" to={`/topics`}>
+          View all topics
+        </Link>
 
+        <button
+          className="voting"
+          onClick={() => this.changeSort("created_at")}
+        >
+          {" "}
+          Newest
+        </button>
+
+        <button className="voting" onClick={() => this.changeSort("votes")}>
+          Rated highest
+        </button>
+
+        <button
+          className="voting"
+          onClick={() => this.changeSort("comment_count")}
+        >
+          Most comments
+        </button>
+        <br />
+        <br />
         <ArticleList articles={articles} />
       </div>
     );
