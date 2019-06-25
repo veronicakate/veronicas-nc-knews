@@ -3,6 +3,7 @@ import DropDownPage from "./DropDownBar";
 import { getArticles } from "../api";
 import { Link } from "@reach/router";
 import "../App.css";
+import CommentForm from "./CommentForm";
 
 class ArticleList extends Component {
   state = {

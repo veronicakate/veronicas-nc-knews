@@ -1,49 +1,81 @@
 import React, { Component } from "react";
 import { postComment } from "../api";
 
-import { Form, Container, Card } from "react-bootstrap";
-
 class CommentForm extends Component {
   state = {
-    body: ""
+    body: "",
+    comments: null,
+    errComment: false
   };
-  handleChange = e => {
-    this.setState({ body: e.target.value });
-  };
-  postComment = event => {
-    event.preventDefault();
-    postComment(this.props.article_id, {
-      username: this.props.loggedInUser,
-      body: this.state.body
-    }).then(comment => {
-      this.props.updateComments(comment);
-    });
-    this.setState({ body: "" });
-    this.refs.form.reset();
-  };
+
   render() {
+    // if (!this.props.loggedInUser) return <h2> Please log in to comment</h2>;
     const button = !!this.state.body;
     return (
-      <Container>
-        <Card>
-          <Form ref="form" onSubmit={this.resetForm}>
-            <Form.Group>
-              <Form.Control
-                onChange={this.handleChange}
-                as="textarea"
-                rows="4"
-                placeholder={"Please log in to post a comment if you wish."}
-              />{" "}
-            </Form.Group>
-            <button disabled={!button} type="submit">
-              {" "}
-              submit
-            </button>
-          </Form>
-        </Card>
-      </Container>
+      <div>
+        <form
+          onSubmit={this.state.comments ? this.handleSubmit : this.handleError}
+        >
+          <label>Comment here</label>
+          <input
+            onChange={this.handleInput}
+            required={true}
+            type="text"
+            name="comment"
+          />
+          <input type="submit" value="submit" />
+        </form>
+        {this.state.errComment && <h4> comment required</h4>}
+      </div>
     );
   }
+  handleInput = e => {
+    this.setState({ comments: e.target.value });
+  };
+  handleError = e => {
+    e.preventDefault();
+    this.setState({ errComment: true });
+  };
+  handleSubmit = event => {
+    event.preventDefault();
+    this.setState({ errComment: false });
+    const { article_id } = this.props;
+    const username = this.props.loggedInUser.username;
+    const body = this.state.commentInput;
+    postComment({
+      article_id,
+      username,
+      body
+    }).then(comment => {
+      this.updateComments(comment);
+    });
+    event.target.comment.value = "";
+  };
+  updateComments = comment => {
+    this.setState(prevState => {
+      return {
+        comments: [comment, ...prevState.comments]
+      };
+    });
+  };
 }
-
 export default CommentForm;
+
+// <Container>
+//   <Card>
+//     <Form ref="form" onSubmit={this.resetForm}>
+//       <Form.Group>
+//         <Form.Control
+//           onChange={this.handleChange}
+//           as="textarea"
+//           rows="4"
+//           placeholder={"Please log in to post a comment if you wish."}
+//         />{" "}
+//       </Form.Group>
+//       <button disabled={!button} type="submit">
+//         {" "}
+//         submit
+//       </button>
+//     </Form>
+//   </Card>
+// </Container>

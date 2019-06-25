@@ -26,9 +26,9 @@ export const getSingleArticle = article_id => {
   );
 };
 
-export const getUser = () => {
-  return Axios.get(`${url}users`).then(({ data: { users } }) => {
-    return users;
+export const getUser = username => {
+  return Axios.get(`${url}users/${username}`).then(({ data: { user } }) => {
+    return user;
   });
 };
 
@@ -56,7 +56,7 @@ export const deleteComment = comment_id => {
 export const deleteArticle = article_id => {
   return Axios.delete(url, +`articles/${article_id}`);
 };
-export const postComment = (article_id, username, body, newComment) => {
+export const postComment = (article_id, username, body) => {
   return Axios.post(url + "articles/" + article_id + "/comments", {
     username,
     body
@@ -103,11 +103,11 @@ export const sortedArticles = async (sort_by, order) => {
   return data.articles;
 };
 
-export const voteIt = (article_id, newVote) => {
-  return Axios.patch(url + `articles/${article_id}`, {
+export const voteIt = (article_id, from, newVote) => {
+  return Axios.patch(url + `${from}/${article_id}`, {
     inc_votes: newVote
-  }).then(({ data: article }) => {
-    return article.votes;
+  }).then(({ data }) => {
+    return data;
   });
 };
 

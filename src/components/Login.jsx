@@ -3,15 +3,35 @@ import React, { Component } from "react";
 import "../App.css";
 class LoginBox extends Component {
   state = {
-    userNameInput: ""
+    userNameInput: "",
+    err: null
   };
   render() {
     return (
-      <div className="headerLogin">
-        <form onSubmit={this.handleSubmit}>
-          <input required={true} onChange={this.handleInput} type="text" />
-          <button className="LogInButton"> login!</button>
-        </form>
+      <div className="">
+        <div>
+          <form onSubmit={this.handleSubmit}>
+            <input
+              className="logInBox"
+              required={true}
+              onChange={this.handleInput}
+              type="text"
+              placeholder="Log in as 'jessjelly'"
+            />
+            <div>
+              <input className="logIn" type="submit" value="log in" />
+              <input
+                className="logOut"
+                type="submit"
+                value="log out"
+                onClick={() => this.setState({ userNameInput: "" })}
+              />
+              {this.state.err && this.state.err.status === 404 && (
+                <h5> Username not found</h5>
+              )}
+            </div>
+          </form>
+        </div>
       </div>
     );
   }
@@ -28,7 +48,7 @@ class LoginBox extends Component {
     getUser(userNameInput)
       .then(validUser => {
         console.log(userNameInput);
-        this.props.logInUser(validUser.username);
+        this.props.logInUser(validUser);
       })
       .catch(error => {
         // handle catch

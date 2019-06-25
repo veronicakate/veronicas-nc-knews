@@ -9,6 +9,7 @@ import Topics from "./components/Topics";
 import { getTopics, getUser } from "./api";
 import Navigation from "./components/Navigation";
 import LogInBox from "./components/Login";
+import ShowError from "./components/ErrorHandling";
 
 class App extends Component {
   state = {
@@ -32,9 +33,10 @@ class App extends Component {
         <Header
           path="/"
           loggedInUser={this.state.loggedInUser}
+          update={this.signInUser}
           logOutUser={this.logOut}
         />
-        <LogInBox logInUser={this.signInUser} />
+
         {/* <Navigation user={loggedInUser} topics={topics} /> */}
 
         <Router>
@@ -42,28 +44,30 @@ class App extends Component {
 
           <SingleArticle
             path="/articles/:article_id"
-            loggedInUser={loggedInUser}
+            loggedInUser={this.loggedInUser}
           />
           <Topics path="/topics" topics={topics} />
+          <ShowError default />
         </Router>
       </div>
     );
   }
 
   componentDidMount() {
+    const username = localStorage.getItem("username");
     const url = "https://bencnews.herokuapp.com/api/articles";
     const retrieved = localStorage.getItem("state");
-    if (retrieved) {
-      this.setState(JSON.parse(retrieved));
-    }
+    // if (username) {
+    //   getUser(username).then(user => {
+    //     this.setState({ loggedInUser: user });
+    //   });
+
     Axios.get(url).then(({ data: { articles } }) => {
       this.setState({ articleList: articles });
     });
     this.getTopics();
   }
-  componentDidUpdate() {
-    this.handleSave();
-  }
+
   handleSave = () => {
     localStorage.setItem("state", JSON.stringify(this.state));
   };
@@ -72,10 +76,9 @@ class App extends Component {
       this.setState({ topics });
     });
   };
-  signInUser = loggedInUser => {
-    return getUser(loggedInUser).then(loggedInUser => {
-      this.setState({ loggedInUser });
-    });
+  signInUser = user => {
+    localStorage.setItem("username", user && user.username);
+    this.setState({ loggedInUser: user });
   };
 
   logOut = e => {
@@ -84,5 +87,4 @@ class App extends Component {
     localStorage.removeItem("loggedInUser");
   };
 }
-
 export default App;
