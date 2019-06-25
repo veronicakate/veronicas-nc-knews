@@ -2,14 +2,13 @@ import React, { Component } from "react";
 import Header from "./components/Header";
 import Articles from "./components/Articles";
 import "./App.css";
-import { Router, Link } from "@reach/router";
+import { Router } from "@reach/router";
 import SingleArticle from "./components/SingleArticle";
 import Axios from "axios";
 import Topics from "./components/Topics";
-import { getTopics, getUser } from "./api";
-import Navigation from "./components/Navigation";
-import LogInBox from "./components/Login";
+import { getTopics } from "./api";
 import ShowError from "./components/ErrorHandling";
+import Coding from "./components/CodingPage";
 
 class App extends Component {
   state = {
@@ -41,12 +40,12 @@ class App extends Component {
 
         <Router>
           <Articles logInUser={this.loggedInUser} topics={topics} path="/" />
-
           <SingleArticle
             path="/articles/:article_id"
             loggedInUser={this.loggedInUser}
           />
           <Topics path="/topics" topics={topics} />
+          <Coding path="/topics/coding" />
           <ShowError default />
         </Router>
       </div>

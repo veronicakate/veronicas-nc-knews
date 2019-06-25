@@ -56,6 +56,7 @@ class Articles extends Component {
         </button>
         <br />
         <br />
+        <Voting />
         <ArticleList articles={articles} />
       </div>
     );

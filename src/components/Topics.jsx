@@ -5,16 +5,16 @@ import { Router, Link } from "@reach/router";
 
 const Topics = ({ topics }) => {
   return (
-    <div className="header">
+    <div className="App">
+      <h3>List of current topics:</h3>
+      <h5>please click for the list of all articles by each topic</h5>
       {topics.map(topic => (
         <div key={topic.slug}>
           {" "}
           <Link to={`/topics/${topic.slug}`} className="link">
-            <h1>{topic.slug} </h1>
+            <h1> {topic.slug} </h1>
           </Link>
-          <div align="right">
-            <h5 className="topic">Topic: {topic.slug}</h5>
-          </div>
+          <div align="right" />
         </div>
       ))}
     </div>

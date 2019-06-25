@@ -26,9 +26,8 @@ class LoginBox extends Component {
                 value="log out"
                 onClick={() => this.setState({ userNameInput: "" })}
               />
-              {this.state.err && this.state.err.status === 404 && (
-                <h5> Username not found</h5>
-              )}
+
+              {this.state.err && <h5> Username not found, try 'jessjelly'</h5>}
             </div>
           </form>
         </div>

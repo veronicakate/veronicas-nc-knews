@@ -38,6 +38,13 @@ class Voting extends Component {
     this.setState(prevState => {
       return { voteChange: prevState.voteChange + direction };
     });
+    voteIt(this.props.comment_id, this.state.voteChange + direction).catch(
+      err => {
+        this.setState(prevState => {
+          return { voteChange: prevState.voteChange - direction };
+        });
+      }
+    );
   };
 }
 

@@ -60,22 +60,3 @@ class CommentForm extends Component {
   };
 }
 export default CommentForm;
-
-// <Container>
-//   <Card>
-//     <Form ref="form" onSubmit={this.resetForm}>
-//       <Form.Group>
-//         <Form.Control
-//           onChange={this.handleChange}
-//           as="textarea"
-//           rows="4"
-//           placeholder={"Please log in to post a comment if you wish."}
-//         />{" "}
-//       </Form.Group>
-//       <button disabled={!button} type="submit">
-//         {" "}
-//         submit
-//       </button>
-//     </Form>
-//   </Card>
-// </Container>

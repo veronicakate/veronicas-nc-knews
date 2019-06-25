@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "@reach/router";
-
 import { getAllUsers } from "../api";
 
 export default class GetUsers extends Component {

@@ -36,25 +36,23 @@ class SingleArticle extends Component {
         <button
           size="sml"
           className="voting"
-          onCLick={() => this.handleVote(1)}
+          onCLick={() => this.addVote(1)}
+          disabled={this.state.voteChange === 1}
         >
           {" "}
           Like
         </button>
-        <button className="voting" onCLick={() => this.handleVote(-1)}>
+        <button
+          className="voting"
+          onCLick={() => this.addVote(-1)}
+          disabled={this.state.voteChange === -1}
+        >
           {" "}
           Dislike
         </button>
         <h3>{article.votes + this.props.voteChange}</h3>
         <h4 className="commentTitle">Comments..</h4>
-        <div>
-          {/* <button className="votingUp" onClick={() => this.handleVote(1)}>
-            {" "}
-            up vote
-          </button>
-          <h3>{votes + this.state.voteChange}</h3>
-          <button onClick={() => this.handleVote(-1)}> down vote</button> */}
-        </div>
+        <div />
         <div />
         <p className="commentBody">{body}</p>
         <Comments
@@ -71,6 +69,21 @@ class SingleArticle extends Component {
       </div>
     );
   }
+  addVote = direction => {
+    const { article_id, comment_id } = this.props;
+
+    voteIt({ comment_id, direction, article_id });
+    this.setState(prevState => {
+      return { voteChange: prevState.voteChange + direction };
+    });
+    voteIt(this.props.comment_id, this.state.voteChange + direction).catch(
+      err => {
+        this.setState(prevState => {
+          return { voteChange: prevState.voteChange - direction };
+        });
+      }
+    );
+  };
   handleVote = voteChangeInput => {
     const { comment_id } = this.props;
     const { voteChange } = this.state;

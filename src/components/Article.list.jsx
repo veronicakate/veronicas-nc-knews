@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import DropDownPage from "./DropDownBar";
+
 import { getArticles } from "../api";
 import { Link } from "@reach/router";
 import "../App.css";
